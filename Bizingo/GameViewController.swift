@@ -19,7 +19,7 @@ class GameViewController: UIViewController {
         // including entities and graphs.
         if let scene = GKScene(fileNamed: "GameScene") {
             
-            // Get the SKScene from the loaded GKScene
+            // Get the SKScene from the loaded GKScenegame
             if let sceneNode = scene.rootNode as! GameScene? {
                 
                 // Copy gameplay related content over to the scene

@@ -7,58 +7,96 @@
 //
 
 import SpriteKit
+import CoreGraphics
 import GameplayKit
-import UIKit
 
 class GameScene: SKScene {
     
+    var entities = [GKEntity]()
+    var graphs = [String : GKGraph]()
+    var possibleMoves = [Any]()
+//    let movesManager = MovimentManager()
+    
+    private var lastUpdateTime : TimeInterval = 0
+    
+    private var board: Board!
+    
     override func sceneDidLoad() {
-        drawBoard()
+        self.lastUpdateTime = 0
+        
+        buildBizingoBoard()
     }
     
-    func drawBoard() {
-        // Board parameters
-        let numRows = 11
-        let numCols = 11
+    private func buildBizingoBoard() {
+        self.board = Board()
         
-        var collum = [3, 4, 5, 6, 7, 8, 9, 10, 11, 10, 9]
-
-        
-        let xOffset: CGFloat = 100
-        let yOffset: CGFloat = 50
-        // Column characters
-        let alphas: String = "abcdefghikl"
-        // Used to alternate between white and black squares
-        var toggle: Bool = false
-        
-        for row in 0...numRows - 1 {
-            for col in 0...numCols - 1 {
-                
-                collum.forEach { (collumzinho) in
-                    // Letter for this column
-                    let colChar = Array(alphas)[col]
-                    // Determine the color of square
-                    let triangle = SKShapeNode()
-                    let path = UIBezierPath()
-                    path.move(to: CGPoint(x: 0, y: 0))
-                    path.addLine(to: CGPoint(x: 30, y: 52))
-                    path.addLine(to: CGPoint(x: 60, y: 0))
-                    path.close()
-                    triangle.path = path.cgPath
-                    triangle.fillColor = .black
-                    triangle.strokeColor = .clear
-                    triangle.position = CGPoint(x: CGFloat(60 * collumzinho) - 330,
-                                              y: CGFloat(52 * row))
-                    // Set sprite's name (e.g., a8, c5, d1)
-                    triangle.name = "\(colChar)\(2 - row)"
-                    self.addChild(triangle)
-                    toggle = !toggle
-                }
-                
-                
-                
+        board.triangles.forEach { row in
+            row.forEach { triangle in
+                self.addChild(triangle)
             }
-            toggle = !toggle
         }
+        
+//        board.pices.forEach { row in
+//            row.forEach({ piece in
+//                self.addChild(piece)
+//            })
+//        }
+        
+        resetTrianglesColor()
+    }
+    
+    //  Resetar as cores
+    private func resetTrianglesColor() {
+        board.triangles.enumerated().forEach { i, line in
+            line.enumerated().forEach { j, triangle in
+                if i < 9 {
+                    triangle.fillColor = (j % 2 == 0) ? .black : .white
+                } else {
+                    triangle.fillColor = (j % 2 == 0) ? .white : .black
+                }
+            }
+        }
+    }
+    
+    //  Pintar o triangulo clicado
+    private func selectedTriangle(at point: CGPoint, resetOthers: Bool = true) {
+        resetTrianglesColor()
+        board.triangles.enumerated().forEach { i, line in
+            line.enumerated().forEach { j, triangle in
+                if triangle.contains(point) {
+                    triangle.fillColor = .green
+//                    self.movesManager.showPossibleMoves(for: triangle, in: board)
+//                    self.movesManager.showKilledTriangle(for: triangle, in: board)
+                }
+            }
+        }
+    }
+        
+    func touchDown(atPoint point: CGPoint) {
+        selectedTriangle(at: point)
+    }
+        
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+    }
+        
+        
+    override func update(_ currentTime: TimeInterval) {
+        // Called before each frame is rendered
+            
+        // Initialize _lastUpdateTime if it has not already been
+        if (self.lastUpdateTime == 0) {
+            self.lastUpdateTime = currentTime
+        }
+        
+        // Calculate time since last update
+        let dt = currentTime - self.lastUpdateTime
+            
+        // Update entities
+        for entity in self.entities {
+            entity.update(deltaTime: dt)
+        }
+            
+        self.lastUpdateTime = currentTime
     }
 }
