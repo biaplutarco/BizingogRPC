@@ -11,8 +11,8 @@ import SpriteKit
 
 class Board {
     var triangles: [[Triangle]] = []
-    var playerOnePices: [[Piece]] = []
-    var playerTwoPices: [[Piece]] = []
+    var playerOnePieces: [[Piece]] = []
+    var playerTwoPieces: [[Piece]] = []
     
     var origin: CGPoint
     var scale: CGFloat
@@ -22,10 +22,11 @@ class Board {
         self.origin = origin
         
         for _ in 0...11 { triangles.append([]) }
-        for _ in 0...18{ playerOnePices.append([]) }
-        for _ in 0...18{ playerTwoPices.append([]) }
+        for _ in 0...18{ playerOnePieces.append([]) }
+        for _ in 0...18{ playerTwoPieces.append([]) }
         
         drawBoard()
+        addPieces()
     }
     
     //  Desenhar o tabuleiro
@@ -49,6 +50,7 @@ class Board {
         
         for j in 0...triangles-1 {
             createTriangle(at: Index(i: i, j: j), with: xFactor, isReverdedLine: false)
+            
         }
     }
     
@@ -65,33 +67,69 @@ class Board {
     private func createTriangle(at index: Index, with xFactor: Int, isReverdedLine: Bool) {
         let x = CGFloat(index.j * Int(scale) + xFactor)
         let y = CGFloat(index.i * Int(-scale) * 2)
-        let triangleOrigin = CGPoint(x: x, y: y)
+        let offset = CGPoint(x: x, y: y)
 
         if isReverdedLine {
             if index.j % 2 == 0 {
-                let triangle = Triangle(boardOrigin: origin, origin: triangleOrigin, index: index,
+                let triangle = Triangle(boardOrigin: origin, offset: offset, index: index,
                                         direction: .reverse, scale: scale)
                 self.triangles[index.i].append(triangle)
             } else {
-                let triangle = Triangle(boardOrigin: origin, origin: triangleOrigin, index: index,
+                let triangle = Triangle(boardOrigin: origin, offset: offset, index: index,
                                         direction: .normal, scale: scale)
                 self.triangles[index.i].append(triangle)
             }
         } else {
             if index.j % 2 == 0 {
-                let triangle = Triangle(boardOrigin: origin, origin: triangleOrigin, index: index,
+                let triangle = Triangle(boardOrigin: origin, offset: offset, index: index,
                                         direction: .normal, scale: scale)
                 self.triangles[index.i].append(triangle)
             } else {
-                let triangle = Triangle(boardOrigin: origin, origin: triangleOrigin, index: index,
+                let triangle = Triangle(boardOrigin: origin, offset: offset, index: index,
                                         direction: .reverse, scale: scale)
                 self.triangles[index.i].append(triangle)
             }
         }
     }
     
-    private func createPiece(at index: Index, center: CGPoint, to player: Player, of type: Type) {
-        let piece = Piece(origin: center, initialIndex: index, player: player, type: type)
+    private func addPieces() {
+        triangles.forEach { row in
+            row.forEach { triangle in
+                if Index.playerOne.contains(triangle.index) {
+                    triangle.isEmpty = false
+
+                    for num in 0...(playerOnePieces.count - 1) {
+                        let piece = Piece(origin: triangle.getCenter(to: .one), initialIndex: triangle.index, player: .one, type: .normal)
+
+                        self.playerOnePieces[num].append(piece)
+                    }
+                } else if Index.playerOneCaptains.contains(triangle.index) {
+                    triangle.isEmpty = false
+
+                    for num in 0...(playerOnePieces.count - 1) {
+                        let piece = Piece(origin: triangle.getCenter(to: .one), initialIndex: triangle.index, player: .one, type: .captain)
+
+                        self.playerOnePieces[num].append(piece)
+                    }
+                } else if Index.playerTwo.contains(triangle.index) {
+                    triangle.isEmpty = false
+                    
+                    for num in 0...(playerTwoPieces.count - 1) {
+                        let piece = Piece(origin: triangle.getCenter(to: .two), initialIndex: triangle.index, player: .two, type: .normal)
+
+                        self.playerTwoPieces[num].append(piece)
+                    }
+                } else if Index.playerTwoCaptains.contains(triangle.index) {
+                    triangle.isEmpty = false
+
+                    for num in 0...(playerTwoPieces.count - 1) {
+                        let piece = Piece(origin: triangle.getCenter(to: .two), initialIndex: triangle.index, player: .two, type: .captain)
+
+                        self.playerTwoPieces[num].append(piece)
+                    }
+                }
+            }
+        }
     }
 }
 

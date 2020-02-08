@@ -8,27 +8,35 @@
 
 import UIKit
 
+enum SpecificLine {
+    case others, L8, L9, L10
+}
+
 struct WalkMoviment {
-    func getWalkFromDefault(selected i: Int, selected j: Int) -> [(Int, Int)] {
-        return [(i - 1, j - 2), (i - 1, j),
-                (i, j - 2), (i, j + 2),
-                (i + 1, j + 2), (i + 1, j)]
-    }
-    
-    func getWalkFromL8(selected i: Int, selected j: Int) -> [(Int, Int)] {
-        return [(i - 1, j), (i - 1, j - 2),
-                (i, j - 2), (i, j + 2),
-                (i + 1, j + 1), (i + 1, j - 1)]
-    }
-    
-    func getWalkFromL9(selected i: Int, selected j: Int) -> [(Int, Int)] {
-        return [(i - 1, j + 1), (i - 1, j - 1),
-                (i, j - 2), (i, j + 2),
-                (i + 1, j - 2), (i + 1, j)]
-    }
-    
-    func getWalkFromL10(selected i : Int, selected j: Int) -> [(Int, Int)] {
-        return [(i - 1, j + 2), (i - 1, j),
-                (i, j + 2), (i, j - 2)]
+    func getWalkFor(index: Index, at line: SpecificLine) -> [Index] {
+        let i = index.i
+        let j = index.j
+        
+        var moves = [Index]()
+        
+        switch line {
+        case .others:
+            moves = [Index(i: i - 1, j: j - 2), Index(i: i - 1, j: j),
+                     Index(i: i, j: j - 2), Index(i: i, j: j + 2),
+                     Index(i: i + 1, j: j + 2), Index(i: i + 1, j: j)]
+        case .L8:
+            moves = [Index(i: i - 1, j: j), Index(i: i - 1, j: j - 2),
+                     Index(i: i, j: j - 2), Index(i: i, j: j + 2),
+                     Index(i: i + 1, j: j + 1), Index(i: i + 1, j: j - 1)]
+        case .L9:
+            moves = [Index(i: i - 1, j: j + 1), Index(i: i - 1, j: j - 1),
+                     Index(i: i, j: j - 2), Index(i: i, j: j + 2),
+                     Index(i: i + 1, j: j - 2), Index(i: i + 1, j: j)]
+        case .L10:
+            moves = [Index(i: i - 1, j: j + 2), Index(i: i - 1, j: j),
+                     Index(i: i, j: j + 2), Index(i: i, j: j - 2)]
+        }
+        
+        return moves
     }
 }

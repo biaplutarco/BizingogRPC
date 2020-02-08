@@ -15,7 +15,7 @@ class GameScene: SKScene {
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
     var possibleMoves = [Any]()
-//    let movesManager = MovimentManager()
+    let movesManager = MovimentManager()
     
     private var lastUpdateTime : TimeInterval = 0
     
@@ -36,11 +36,17 @@ class GameScene: SKScene {
             }
         }
         
-//        board.pices.forEach { row in
-//            row.forEach({ piece in
-//                self.addChild(piece)
-//            })
-//        }
+        board.playerOnePieces.forEach { row in
+            row.forEach({ piece in
+                self.addChild(piece)
+            })
+        }
+        
+        board.playerTwoPieces.forEach { row in
+            row.forEach({ piece in
+                self.addChild(piece)
+            })
+        }
         
         resetTrianglesColor()
     }
@@ -63,9 +69,9 @@ class GameScene: SKScene {
         resetTrianglesColor()
         board.triangles.enumerated().forEach { i, line in
             line.enumerated().forEach { j, triangle in
-                if triangle.contains(point) {
+                if triangle.contains(point) && triangle.isEmpty == false {
                     triangle.fillColor = .green
-//                    self.movesManager.showPossibleMoves(for: triangle, in: board)
+                    self.movesManager.showPossibleMoves(for: triangle.index, in: board)
 //                    self.movesManager.showKilledTriangle(for: triangle, in: board)
                 }
             }

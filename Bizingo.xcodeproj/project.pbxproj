@@ -19,8 +19,8 @@
 		645106FB23E498710024C68B /* BizingoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645106FA23E498710024C68B /* BizingoUITests.swift */; };
 		A4079A8123EC772B002F4253 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4079A8023EC772B002F4253 /* Triangle.swift */; };
 		A4079A8323EC8ECE002F4253 /* WalkMoviment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4079A8223EC8ECE002F4253 /* WalkMoviment.swift */; };
+		A4E0BC6F23EF288C0017ED08 /* Index.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E0BC6E23EF288C0017ED08 /* Index.swift */; };
 		A4EBD0CE23EDA6A60028EA54 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EBD0CD23EDA6A60028EA54 /* Piece.swift */; };
-		A4EBD0D023EDA6FE0028EA54 /* DrawPieceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EBD0CF23EDA6FE0028EA54 /* DrawPieceManager.swift */; };
 		A4EC912E23ECE4A100C2B53C /* KillMoviment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC912D23ECE4A100C2B53C /* KillMoviment.swift */; };
 		A4EC913523ECEB9300C2B53C /* MovimentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC913423ECEB9300C2B53C /* MovimentManager.swift */; };
 		A4FD0F1623EA3880008BF4EA /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FD0F1523EA3880008BF4EA /* Board.swift */; };
@@ -62,8 +62,8 @@
 		645106FC23E498710024C68B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A4079A8023EC772B002F4253 /* Triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
 		A4079A8223EC8ECE002F4253 /* WalkMoviment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkMoviment.swift; sourceTree = "<group>"; };
+		A4E0BC6E23EF288C0017ED08 /* Index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Index.swift; sourceTree = "<group>"; };
 		A4EBD0CD23EDA6A60028EA54 /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
-		A4EBD0CF23EDA6FE0028EA54 /* DrawPieceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawPieceManager.swift; sourceTree = "<group>"; };
 		A4EC912D23ECE4A100C2B53C /* KillMoviment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KillMoviment.swift; sourceTree = "<group>"; };
 		A4EC913423ECEB9300C2B53C /* MovimentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovimentManager.swift; sourceTree = "<group>"; };
 		A4FD0F1523EA3880008BF4EA /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
@@ -123,7 +123,6 @@
 				645106DC23E4986D0024C68B /* GameViewController.swift */,
 				645106DA23E4986D0024C68B /* GameScene.swift */,
 				A4EC913623ECECBD00C2B53C /* Moviment */,
-				A4EBD0CC23EDA6810028EA54 /* Piece */,
 				A4EC913123ECE6F700C2B53C /* Board */,
 				645106DE23E4986D0024C68B /* Main.storyboard */,
 				645106E123E498710024C68B /* Assets.xcassets */,
@@ -151,20 +150,13 @@
 			path = BizingoUITests;
 			sourceTree = "<group>";
 		};
-		A4EBD0CC23EDA6810028EA54 /* Piece */ = {
-			isa = PBXGroup;
-			children = (
-				A4EBD0CF23EDA6FE0028EA54 /* DrawPieceManager.swift */,
-			);
-			path = Piece;
-			sourceTree = "<group>";
-		};
 		A4EC913123ECE6F700C2B53C /* Board */ = {
 			isa = PBXGroup;
 			children = (
 				A4EBD0CD23EDA6A60028EA54 /* Piece.swift */,
 				A4079A8023EC772B002F4253 /* Triangle.swift */,
 				A4FD0F1523EA3880008BF4EA /* Board.swift */,
+				A4E0BC6E23EF288C0017ED08 /* Index.swift */,
 			);
 			path = Board;
 			sourceTree = "<group>";
@@ -316,7 +308,7 @@
 				A4FD0F1623EA3880008BF4EA /* Board.swift in Sources */,
 				A4EBD0CE23EDA6A60028EA54 /* Piece.swift in Sources */,
 				A4079A8323EC8ECE002F4253 /* WalkMoviment.swift in Sources */,
-				A4EBD0D023EDA6FE0028EA54 /* DrawPieceManager.swift in Sources */,
+				A4E0BC6F23EF288C0017ED08 /* Index.swift in Sources */,
 				A4079A8123EC772B002F4253 /* Triangle.swift in Sources */,
 				645106DD23E4986D0024C68B /* GameViewController.swift in Sources */,
 				A4EC913523ECEB9300C2B53C /* MovimentManager.swift in Sources */,
