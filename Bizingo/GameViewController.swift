@@ -24,7 +24,6 @@ extension GameViewController: ChatViewDelegate {
 
 class GameViewController: UIViewController {
     var nickname: String?
-    var messages: [[String: AnyObject]]?
     var playersOn: [Player] = []
     
     var users: [[String: AnyObject]]? {

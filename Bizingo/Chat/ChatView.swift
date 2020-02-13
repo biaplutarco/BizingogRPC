@@ -65,7 +65,7 @@ class ChatView: UIView {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .clear
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(ChatTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(tableView)
         
@@ -95,7 +95,8 @@ class ChatView: UIView {
     @objc func didTapSend(_ sender: UIButton) {
         delegate?.didTapSend(message: textField.text!)
         textField.text = ""
-        tableView.reloadData()
+        getChatMessage()
+//        tableView.reloadData()
     }
     
     func getChatMessage() {
@@ -123,6 +124,7 @@ class ChatView: UIView {
             tableView.topAnchor.constraint(equalTo: restartButton.bottomAnchor, constant: 16),
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            tableView.heightAnchor.constraint(equalToConstant: 400),
             
             textField.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 16),
             textField.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
@@ -148,16 +150,15 @@ extension ChatView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("EITA",messages)
         return messages.count 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ChatTableViewCell else { return UITableViewCell() }
         
         let message = messages[indexPath.row]
-        cell.backgroundColor = .purple
-        cell.textLabel?.text = message.nickname
-        cell.detailTextLabel?.text = message.message
+        cell.setup(with: message.nickname, message: message.message)
         
         return cell
     }
