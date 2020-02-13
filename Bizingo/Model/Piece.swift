@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-enum Player {
+enum PlayerType {
     case one, two
 }
 
@@ -20,18 +20,25 @@ enum Type {
 class Piece: SKShapeNode {
     let initialIndex: Index
     let origin: CGPoint
-
     var currentIndex: Index
-    var player: Player
-    var type: Type
-    var isDead: Bool = false
+    var scale: CGFloat
     
-    init(origin: CGPoint, initialIndex: Index, player: Player, type: Type) {
+    var player: PlayerType
+    var type: Type
+    
+    var isDead: Bool = false {
+        didSet{
+            update()
+        }
+    }
+    
+    init(origin: CGPoint, scale: CGFloat, initialIndex: Index, player: PlayerType, type: Type) {
         self.initialIndex = initialIndex
         self.currentIndex = initialIndex
         self.player = player
         self.type = type
         self.origin = origin
+        self.scale = scale/14
         
         super.init()
         
@@ -44,19 +51,29 @@ class Piece: SKShapeNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func drawPiece(to player: Player) {
+    func move(to index: Index) {
+        let action = SKAction.move(to: CGPoint(x: currentIndex.i - index.i, y: currentIndex.i - index.j), duration: 2)
+        
+        self.run(action)
+    }
+    
+    private func update() {
+        self.fillColor = .clear
+    }
+        
+    private func drawPiece(to player: PlayerType) {
         var offset = CGPoint()
         
         switch player {
         case .one:
-            offset = CGPoint(x: 5, y: 1)
+            offset = CGPoint(x: scale * 5, y: scale * 1)
             self.fillColor = .orange
 
             if type == .captain {
                 self.fillColor = .red
             }
         case .two:
-            offset = CGPoint(x: 5, y: 10)
+            offset = CGPoint(x: scale * 5, y: scale * 10)
             self.fillColor = .blue
             
             if type == .captain {
@@ -64,8 +81,8 @@ class Piece: SKShapeNode {
             }
         }
         
-        let rect = CGRect(x: origin.x - offset.x, y: origin.y + offset.y, width: 10, height: 10)
-        let path = UIBezierPath(roundedRect: rect, cornerRadius: 64)
+        let rect = CGRect(x: origin.x - offset.x, y: origin.y + offset.y, width: scale * 10, height: scale * 10)
+        let path = UIBezierPath(roundedRect: rect, cornerRadius: scale * 64)
         
         self.path = path.cgPath
     }

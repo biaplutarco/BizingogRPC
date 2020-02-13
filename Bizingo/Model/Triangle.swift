@@ -14,11 +14,12 @@ enum Direction {
 }
 
 class Triangle: SKShapeNode {
-    var index: Index
-    var direction: Direction
     var scale: CGFloat
     var offset: CGPoint
     var boardOrigin: CGPoint
+    var direction: Direction
+
+    var index: Index
     var isEmpty: Bool = true
     
     init(boardOrigin: CGPoint, offset: CGPoint, index: Index, direction: Direction, scale: CGFloat) {
@@ -39,7 +40,7 @@ class Triangle: SKShapeNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func getCenter(to player: Player) -> CGPoint {
+    func getCenter(to player: PlayerType) -> CGPoint {
         switch player {
         case .one:
             let x = CGFloat(boardOrigin.x + offset.x)

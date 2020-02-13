@@ -14,12 +14,15 @@ class GameScene: SKScene {
     
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
-    var possibleMoves = [Any]()
-    let movesManager = MovimentManager()
+    var possibleMoves = [Index]()
+    var selectedPiece: Piece?
+
+    var isSelecting: Bool = false
     
     private var lastUpdateTime : TimeInterval = 0
     
     private var board: Board!
+    private var moveManager: MovimentManager!
     
     override func sceneDidLoad() {
         self.lastUpdateTime = 0
@@ -29,6 +32,7 @@ class GameScene: SKScene {
     
     private func buildBizingoBoard() {
         self.board = Board()
+        self.moveManager = MovimentManager(board: board)
         
         board.triangles.forEach { row in
             row.forEach { triangle in
@@ -36,16 +40,16 @@ class GameScene: SKScene {
             }
         }
         
-        board.playerOnePieces.forEach { row in
-            row.forEach({ piece in
+        board.playerOnePieces.forEach { piece in
+//            row.forEach({ piece in
                 self.addChild(piece)
-            })
+//            })
         }
         
-        board.playerTwoPieces.forEach { row in
-            row.forEach({ piece in
+        board.playerTwoPieces.forEach { piece in
+//            row.forEach({ piece in
                 self.addChild(piece)
-            })
+//            })
         }
         
         resetTrianglesColor()
@@ -67,25 +71,70 @@ class GameScene: SKScene {
     //  Pintar o triangulo clicado
     private func selectedTriangle(at point: CGPoint, resetOthers: Bool = true) {
         resetTrianglesColor()
+        
+        
+        
+        var pieces = [Piece]()
+        
+        board.playerOnePieces.forEach { onePieces in
+            pieces.append(onePieces)
+        }
+        
         board.triangles.enumerated().forEach { i, line in
             line.enumerated().forEach { j, triangle in
-                if triangle.contains(point) && triangle.isEmpty == false {
-                    triangle.fillColor = .green
-                    self.movesManager.showPossibleMoves(for: triangle.index, in: board)
-//                    self.movesManager.showKilledTriangle(for: triangle, in: board)
+                pieces.enumerated().forEach { j, piece in
+                    if triangle.contains(point) && triangle.isEmpty == false {
+                        self.moveManager.showPossibleMoves(for: triangle.index)
+                        self.selectedPiece = piece
+                    }
+                }
+                
+                if let piece = self.selectedPiece, triangle.contains(point) && triangle.isEmpty == true {
+                    self.moveManager.move(piece: piece, to: triangle.index)
                 }
             }
         }
     }
+    
+    func updatePiece() {
+//        if isSelecting {
+//            board.playerOnePieces.forEach { line in
+//                line.forEach { piece in
+//                    if piece.currentIndex.i < 8 {
+//                        board.isPieceDead(piece, at: .others)
+//                    } else if piece.currentIndex.i == 8 {
+//                        board.isPieceDead(piece, at: .L8)
+//                    } else if piece.currentIndex.i == 9 {
+//                        board.isPieceDead(piece, at: .L9)
+//                    } else if piece.currentIndex.i == 10 {
+//                        board.isPieceDead(piece, at: .L10)
+//                    }
+//                }
+//            }
+//            self.isSelecting = false
+//        }
+    }
         
     func touchDown(atPoint point: CGPoint) {
+        isSelecting = true
+        
+//        board.triangles.enumerated().forEach { i, line in
+//            line.enumerated().forEach { j, triangle in
+//                if triangle.contains(point) && self.possibleMoves.contains(triangle.index) {
+//
+//                }
+//            }
+//        }
+        
         selectedTriangle(at: point)
     }
         
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
-    }
         
+        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+        
+    }
+    
         
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered

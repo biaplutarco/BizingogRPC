@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Index: Equatable {
+struct Index {
     var i: Int
     var j: Int
     
@@ -29,7 +29,9 @@ struct Index: Equatable {
     static var playerOneCaptains: [Index] = [Index(i: 5, j: 4), Index(i: 5, j: 10)]
     
     static var playerTwoCaptains: [Index] = [Index(i: 7, j: 5), Index(i: 7, j: 13)]
-    
+}
+
+extension Index: Equatable {
     static func ==(lhs: Index, rhs: Index) -> Bool {
         return lhs.i == rhs.i && lhs.j == rhs.j
     }

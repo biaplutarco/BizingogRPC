@@ -11,19 +11,23 @@ import SpriteKit
 
 class Board {
     var triangles: [[Triangle]] = []
-    var playerOnePieces: [[Piece]] = []
-    var playerTwoPieces: [[Piece]] = []
+    
+//    var playerOne: Player
+//    var playerTwo: Player
+    
+    var playerOnePieces: [Piece] = []
+    var playerTwoPieces: [Piece] = []
     
     var origin: CGPoint
     var scale: CGFloat
     
-    init(scale: CGFloat = 15, origin: CGPoint = CGPoint(x: -190, y: 170)) {
-        self.scale = scale
-        self.origin = origin
+    init() {
+        self.scale = 30
+        self.origin = CGPoint(x: 0, y: 300)
         
         for _ in 0...11 { triangles.append([]) }
-        for _ in 0...18{ playerOnePieces.append([]) }
-        for _ in 0...18{ playerTwoPieces.append([]) }
+//        for _ in 0...18{ playerOnePieces.append([]) }
+//        for _ in 0...18{ playerTwoPieces.append([]) }
         
         drawBoard()
         addPieces()
@@ -50,7 +54,6 @@ class Board {
         
         for j in 0...triangles-1 {
             createTriangle(at: Index(i: i, j: j), with: xFactor, isReverdedLine: false)
-            
         }
     }
     
@@ -92,41 +95,42 @@ class Board {
         }
     }
     
+    //  Adicionar peças ao tabuleiro
     private func addPieces() {
         triangles.forEach { row in
             row.forEach { triangle in
                 if Index.playerOne.contains(triangle.index) {
                     triangle.isEmpty = false
 
-                    for num in 0...(playerOnePieces.count - 1) {
-                        let piece = Piece(origin: triangle.getCenter(to: .one), initialIndex: triangle.index, player: .one, type: .normal)
+//                    for num in 0...(playerOnePieces.count - 1) {
+                    let piece = Piece(origin: triangle.getCenter(to: .one), scale: scale, initialIndex: triangle.index, player: .one, type: .normal)
 
-                        self.playerOnePieces[num].append(piece)
-                    }
+                        self.playerOnePieces.append(piece)
+//                    }
                 } else if Index.playerOneCaptains.contains(triangle.index) {
                     triangle.isEmpty = false
 
-                    for num in 0...(playerOnePieces.count - 1) {
-                        let piece = Piece(origin: triangle.getCenter(to: .one), initialIndex: triangle.index, player: .one, type: .captain)
+//                    for num in 0...(playerOnePieces.count - 1) {
+                        let piece = Piece(origin: triangle.getCenter(to: .one), scale: scale, initialIndex: triangle.index, player: .one, type: .captain)
 
-                        self.playerOnePieces[num].append(piece)
-                    }
+                        self.playerOnePieces.append(piece)
+//                    }
                 } else if Index.playerTwo.contains(triangle.index) {
                     triangle.isEmpty = false
                     
-                    for num in 0...(playerTwoPieces.count - 1) {
-                        let piece = Piece(origin: triangle.getCenter(to: .two), initialIndex: triangle.index, player: .two, type: .normal)
+//                    for num in 0...(playerTwoPieces.count - 1) {
+                        let piece = Piece(origin: triangle.getCenter(to: .two), scale: scale, initialIndex: triangle.index, player: .two, type: .normal)
 
-                        self.playerTwoPieces[num].append(piece)
-                    }
+                        self.playerTwoPieces.append(piece)
+//                    }
                 } else if Index.playerTwoCaptains.contains(triangle.index) {
                     triangle.isEmpty = false
 
-                    for num in 0...(playerTwoPieces.count - 1) {
-                        let piece = Piece(origin: triangle.getCenter(to: .two), initialIndex: triangle.index, player: .two, type: .captain)
+//                    for num in 0...(playerTwoPieces.count - 1) {
+                        let piece = Piece(origin: triangle.getCenter(to: .two), scale: scale, initialIndex: triangle.index, player: .two, type: .captain)
 
-                        self.playerTwoPieces[num].append(piece)
-                    }
+                        self.playerTwoPieces.append(piece)
+//                    }
                 }
             }
         }
