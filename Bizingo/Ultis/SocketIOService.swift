@@ -75,7 +75,6 @@ class SocketIOService: NSObject {
             var messageDictionary = [String: AnyObject]()
             messageDictionary["nickname"] = dataArray[0] as! String as AnyObject
             messageDictionary["message"] = dataArray[1] as! String as AnyObject
-            messageDictionary["date"] = dataArray[2] as! String as AnyObject
      
             completionHandler(messageDictionary)
         }

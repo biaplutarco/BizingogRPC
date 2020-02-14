@@ -8,6 +8,10 @@
 
 import UIKit
 
+struct ChatMessage {
+    
+}
+
 protocol ChatViewDelegate: class {
     func didTapGiveUP()
     func didTapSend(message: String)
@@ -65,6 +69,7 @@ class ChatView: UIView {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
         tableView.register(ChatTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(tableView)
@@ -86,6 +91,7 @@ class ChatView: UIView {
         super.init(frame: CGRect.zero)
         self.backgroundColor = .gray
         addSubviewConstraints()
+         getMessage()
     }
     
     @objc func didTapGiveUP(_ sender: UIButton) {
@@ -95,11 +101,9 @@ class ChatView: UIView {
     @objc func didTapSend(_ sender: UIButton) {
         delegate?.didTapSend(message: textField.text!)
         textField.text = ""
-        getChatMessage()
-//        tableView.reloadData()
     }
     
-    func getChatMessage() {
+    func getMessage() {
         SocketIOService.shared.getChatMessage { (messageInfo) -> Void in
             DispatchQueue.main.async {
                 let nickname = messageInfo["nickname"] as! String

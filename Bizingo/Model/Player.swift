@@ -8,6 +8,11 @@
 
 import Foundation
 
+struct PlayersOn {
+    var playerOne: Player
+    var playerTwo: Player
+}
+
 struct Player {
     var type: PlayerType
     var nickname: String = ""

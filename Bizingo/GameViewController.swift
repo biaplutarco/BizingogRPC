@@ -14,21 +14,22 @@ extension GameViewController: ChatViewDelegate {
     func didTapSend(message: String) {
         guard let nickname = self.nickname else { return }
         SocketIOService.shared.sendMessage(message: message, withNickname: nickname)
+        addPlayerOn()
     }
     
     func didTapGiveUP() {
         exitChat()
-        updatePlayerConnection()
+//        updatePlayerConnection()
     }
 }
 
 class GameViewController: UIViewController {
     var nickname: String?
-    var playersOn: [Player] = []
+    var playersOn: PlayersOn?
     
     var users: [[String: AnyObject]]? {
         didSet {
-            updatePlayerConnection()
+//            updatePlayerConnection()
             addPlayerOn()
         }
     }
@@ -60,7 +61,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addContrstraints()
-        updatePlayerConnection()
+//        updatePlayerConnection()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -152,29 +153,28 @@ class GameViewController: UIViewController {
             }
         }
         
-        playersOn.append(playerOne)
-        playersOn.append(playerTwo)
+        playersOn = PlayersOn(playerOne: playerOne, playerTwo: playerTwo)
     }
     
-    func updatePlayerConnection() {
-//        self.chatView.textView.text = ""
-        var playerName = ""
-        var isConnected = ""
-        
-        self.users?.forEach({ (row) in
-            if (row["nickname"] != nil) && (row["isConnected"] != nil) {
-                playerName = "\(String(describing: row["nickname"]))"
-                
-                if "\(String(describing: row["isConnected"]))" == "0" {
-                    isConnected = "disconnected"
-                } else {
-                    isConnected = "connected"
-                }
-            
-//                self.chatView.textView.text = self.chatView.textView.text + "\n\(playerName) \(isConnected)"
-            }
-        })
-    }
+//    func updatePlayerConnection() {
+////        self.chatView.textView.text = ""
+//        var playerName = ""
+//        var isConnected = ""
+//
+//        self.users?.forEach({ (row) in
+//            if (row["nickname"] != nil) && (row["isConnected"] != nil) {
+//                playerName = "\(String(describing: row["nickname"]))"
+//
+//                if "\(String(describing: row["isConnected"]))" == "0" {
+//                    isConnected = "disconnected"
+//                } else {
+//                    isConnected = "connected"
+//                }
+//
+////                self.chatView.textView.text = self.chatView.textView.text + "\n\(playerName) \(isConnected)"
+//            }
+//        })
+//    }
 
     override var shouldAutorotate: Bool {
         return true
