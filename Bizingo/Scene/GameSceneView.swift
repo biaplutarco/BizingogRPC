@@ -11,6 +11,12 @@ import SpriteKit
 import GameplayKit
 
 class GameSceneView: SKView {
+    var player: Player! {
+        didSet {
+            self.gameScene?.player = self.player
+        }
+    }
+    
     var gameScene: GameScene? {
         didSet {
             gameScene?.scaleMode = .aspectFill

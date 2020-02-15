@@ -97,19 +97,17 @@ class GameViewController: UIViewController {
             playerTyped.type = self.playerType
             
             self.playersTyped.append(playerTyped)
-//            if player.nickname == nickname {
-//                var playerTyped = player
-//                playerTyped.type = self.playerType
-//                
-//                self.playersTyped.append(playerTyped)
-//            }
         }
         
         chatView.players = self.playersTyped
-        chatView.nickname = self.nickname
+//        chatView.nickname = self.nickname
         
-        print("Jogadores sem o tipo escolhido, apenas com tipo none", players)
-        print("Jogadores com o tipo escolhido", playersTyped)
+        self.playersTyped.forEach { (player) -> Void in
+            if player.nickname == self.nickname {
+                self.chatView.player = player
+                self.sceneView.player = player
+            }
+        }
         
         updateUI()
     }

@@ -62,10 +62,8 @@ struct MovimentManager {
     
     private func paint(_ triangle: Triangle) {
         if triangle.isEmpty == true {
-            triangle.fillColor = .yellow
-        } else {
-            triangle.fillColor = .red
-        }
+            triangle.fillColor = .walkFree
+        } 
     }
     
     //  Mostrar quando uma peça for morta

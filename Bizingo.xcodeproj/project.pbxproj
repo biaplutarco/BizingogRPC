@@ -142,7 +142,6 @@
 				645106D823E4986D0024C68B /* Actions.sks */,
 				A418E9BE23F5CA5200F6CED9 /* StartViewController.swift */,
 				645106DC23E4986D0024C68B /* GameViewController.swift */,
-				A4442F0623F871B500094D8E /* UIColor+AppColors.swift */,
 				A4442F0323F8705000094D8E /* SocketIO */,
 				A457DD6023F4795E000825F5 /* Chat */,
 				A457DD5F23F4779E000825F5 /* Scene */,
@@ -196,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				A4E0BC6E23EF288C0017ED08 /* Index.swift */,
+				A4442F0623F871B500094D8E /* UIColor+AppColors.swift */,
 				A4EC913623ECECBD00C2B53C /* Moviment */,
 			);
 			path = Ultis;

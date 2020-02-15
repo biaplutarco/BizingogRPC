@@ -11,6 +11,7 @@ import CoreGraphics
 import GameplayKit
 
 class GameScene: SKScene {
+    var player: Player!
     
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
@@ -41,15 +42,11 @@ class GameScene: SKScene {
         }
         
         board.playerOnePieces.forEach { piece in
-//            row.forEach({ piece in
-                self.addChild(piece)
-//            })
+            self.addChild(piece)
         }
         
         board.playerTwoPieces.forEach { piece in
-//            row.forEach({ piece in
-                self.addChild(piece)
-//            })
+            self.addChild(piece)
         }
         
         resetTrianglesColor()
@@ -72,18 +69,25 @@ class GameScene: SKScene {
     private func selectedTriangle(at point: CGPoint, resetOthers: Bool = true) {
         resetTrianglesColor()
         
-        
-        
         var pieces = [Piece]()
         
-        board.playerOnePieces.forEach { onePieces in
-            pieces.append(onePieces)
+        if player.type == .one {
+            board.playerOnePieces.forEach { onePieces in
+                pieces.append(onePieces)
+            }
+        } else if player.type == .two {
+            board.playerTwoPieces.forEach { onePieces in
+                pieces.append(onePieces)
+            }
         }
         
         board.triangles.enumerated().forEach { i, line in
             line.enumerated().forEach { j, triangle in
                 pieces.enumerated().forEach { j, piece in
-                    if triangle.contains(point) && triangle.isEmpty == false {
+                    if triangle.contains(point) &&
+                        triangle.isEmpty == false &&
+                        triangle.index == piece.currentIndex {
+                        
                         self.moveManager.showPossibleMoves(for: triangle.index)
                         self.selectedPiece = piece
                     }

@@ -40,4 +40,8 @@ extension UIColor {
     open class var pieceTwoCap: UIColor {
         return UIColor.init(named: "PieceTwoCap") ?? UIColor.black
     }
+    
+    open class var walkFree: UIColor {
+        return UIColor.init(named: "WalkFree") ?? UIColor.black
+    }
 }

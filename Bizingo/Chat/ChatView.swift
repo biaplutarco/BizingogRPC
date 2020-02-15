@@ -9,7 +9,7 @@
 import UIKit
 
 class ChatView: UIView {
-    var nickname: String!
+    var player: Player!
     var players: [Player] = []
     
     var messages: [MessageInfo] = []
@@ -87,7 +87,7 @@ class ChatView: UIView {
     
     @objc func didTapSend(_ sender: UIButton) {
         if !textField.text!.isEmpty, let message = textField.text {
-            SocketIOService.shared.send(message: message, with: nickname)
+            SocketIOService.shared.send(message: message, with: player.nickname)
             textField.text = nil
             textField.resignFirstResponder()
         }
@@ -153,7 +153,7 @@ extension ChatView: UITableViewDelegate, UITableViewDataSource {
         let sender = messages[indexPath.row].sender
         
         let player = players.filter { (player) -> Bool in
-            player.nickname == self.nickname
+            player.nickname == self.player.nickname
         }
         
         
