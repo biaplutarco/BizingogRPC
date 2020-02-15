@@ -20,6 +20,10 @@
 		A4079A8323EC8ECE002F4253 /* WalkMoviment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4079A8223EC8ECE002F4253 /* WalkMoviment.swift */; };
 		A418E9BD23F5B6BE00F6CED9 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A418E9BC23F5B6BE00F6CED9 /* ChatTableViewCell.swift */; };
 		A418E9BF23F5CA5200F6CED9 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A418E9BE23F5CA5200F6CED9 /* StartViewController.swift */; };
+		A4442F0723F871B600094D8E /* UIColor+AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4442F0623F871B500094D8E /* UIColor+AppColors.swift */; };
+		A4442F0923F87C2000094D8E /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4442F0823F87C2000094D8E /* StartView.swift */; };
+		A4442F0B23F87CBF00094D8E /* MessageInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4442F0A23F87CBF00094D8E /* MessageInfo.swift */; };
+		A4442F1023F884B000094D8E /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4442F0F23F884B000094D8E /* Move.swift */; };
 		A457DD5323F312E9000825F5 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457DD5223F312E9000825F5 /* Player.swift */; };
 		A457DD5A23F33C1E000825F5 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = A457DD5923F33C1E000825F5 /* SocketIO */; };
 		A457DD5C23F33D66000825F5 /* SocketIOService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457DD5B23F33D66000825F5 /* SocketIOService.swift */; };
@@ -69,6 +73,10 @@
 		A4079A8223EC8ECE002F4253 /* WalkMoviment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkMoviment.swift; sourceTree = "<group>"; };
 		A418E9BC23F5B6BE00F6CED9 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		A418E9BE23F5CA5200F6CED9 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		A4442F0623F871B500094D8E /* UIColor+AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColors.swift"; sourceTree = "<group>"; };
+		A4442F0823F87C2000094D8E /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		A4442F0A23F87CBF00094D8E /* MessageInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageInfo.swift; sourceTree = "<group>"; };
+		A4442F0F23F884B000094D8E /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		A457DD5223F312E9000825F5 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		A457DD5B23F33D66000825F5 /* SocketIOService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOService.swift; sourceTree = "<group>"; };
 		A457DD5D23F471DB000825F5 /* GameSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneView.swift; sourceTree = "<group>"; };
@@ -134,9 +142,11 @@
 				645106D823E4986D0024C68B /* Actions.sks */,
 				A418E9BE23F5CA5200F6CED9 /* StartViewController.swift */,
 				645106DC23E4986D0024C68B /* GameViewController.swift */,
+				A4442F0623F871B500094D8E /* UIColor+AppColors.swift */,
+				A4442F0323F8705000094D8E /* SocketIO */,
 				A457DD6023F4795E000825F5 /* Chat */,
 				A457DD5F23F4779E000825F5 /* Scene */,
-				A4EC913123ECE6F700C2B53C /* Model */,
+				A4EC913123ECE6F700C2B53C /* Board */,
 				A457DD5423F3184C000825F5 /* Ultis */,
 				645106E123E498710024C68B /* Assets.xcassets */,
 				645106E323E498710024C68B /* LaunchScreen.storyboard */,
@@ -163,11 +173,29 @@
 			path = BizingoUITests;
 			sourceTree = "<group>";
 		};
+		A4442F0323F8705000094D8E /* SocketIO */ = {
+			isa = PBXGroup;
+			children = (
+				A457DD5B23F33D66000825F5 /* SocketIOService.swift */,
+				A4442F0E23F87E1C00094D8E /* Model */,
+			);
+			path = SocketIO;
+			sourceTree = "<group>";
+		};
+		A4442F0E23F87E1C00094D8E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A457DD5223F312E9000825F5 /* Player.swift */,
+				A4442F0A23F87CBF00094D8E /* MessageInfo.swift */,
+				A4442F0F23F884B000094D8E /* Move.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		A457DD5423F3184C000825F5 /* Ultis */ = {
 			isa = PBXGroup;
 			children = (
 				A4E0BC6E23EF288C0017ED08 /* Index.swift */,
-				A457DD5B23F33D66000825F5 /* SocketIOService.swift */,
 				A4EC913623ECECBD00C2B53C /* Moviment */,
 			);
 			path = Ultis;
@@ -187,19 +215,19 @@
 			children = (
 				A457DD6123F47972000825F5 /* ChatView.swift */,
 				A418E9BC23F5B6BE00F6CED9 /* ChatTableViewCell.swift */,
+				A4442F0823F87C2000094D8E /* StartView.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
 		};
-		A4EC913123ECE6F700C2B53C /* Model */ = {
+		A4EC913123ECE6F700C2B53C /* Board */ = {
 			isa = PBXGroup;
 			children = (
+				A4FD0F1523EA3880008BF4EA /* Board.swift */,
 				A4EBD0CD23EDA6A60028EA54 /* Piece.swift */,
 				A4079A8023EC772B002F4253 /* Triangle.swift */,
-				A4FD0F1523EA3880008BF4EA /* Board.swift */,
-				A457DD5223F312E9000825F5 /* Player.swift */,
 			);
-			path = Model;
+			path = Board;
 			sourceTree = "<group>";
 		};
 		A4EC913623ECECBD00C2B53C /* Moviment */ = {
@@ -350,6 +378,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4442F1023F884B000094D8E /* Move.swift in Sources */,
 				A457DD5323F312E9000825F5 /* Player.swift in Sources */,
 				A418E9BF23F5CA5200F6CED9 /* StartViewController.swift in Sources */,
 				645106DB23E4986D0024C68B /* GameScene.swift in Sources */,
@@ -357,8 +386,10 @@
 				A457DD5E23F471DC000825F5 /* GameSceneView.swift in Sources */,
 				A457DD6223F47972000825F5 /* ChatView.swift in Sources */,
 				A4FD0F1623EA3880008BF4EA /* Board.swift in Sources */,
+				A4442F0B23F87CBF00094D8E /* MessageInfo.swift in Sources */,
 				A4EBD0CE23EDA6A60028EA54 /* Piece.swift in Sources */,
 				A4079A8323EC8ECE002F4253 /* WalkMoviment.swift in Sources */,
+				A4442F0923F87C2000094D8E /* StartView.swift in Sources */,
 				A4E0BC6F23EF288C0017ED08 /* Index.swift in Sources */,
 				A4079A8123EC772B002F4253 /* Triangle.swift in Sources */,
 				645106DD23E4986D0024C68B /* GameViewController.swift in Sources */,
@@ -366,6 +397,7 @@
 				A418E9BD23F5B6BE00F6CED9 /* ChatTableViewCell.swift in Sources */,
 				A4EC912E23ECE4A100C2B53C /* KillMoviment.swift in Sources */,
 				645106D523E4986D0024C68B /* AppDelegate.swift in Sources */,
+				A4442F0723F871B600094D8E /* UIColor+AppColors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

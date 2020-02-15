@@ -45,8 +45,20 @@ class ChatTableViewCell: UITableViewCell {
         super.setSelected(false, animated: animated)
     }
 
-    func setup(with nickname: String, message: String) {
-        nicknameLabel.text = nickname
+    func setup(with message: String, sender: String, and player: Player) {
+        if player.nickname == sender {
+            switch player.type {
+            case .one:
+                colorView.backgroundColor = .playerOne
+            case .two:
+                colorView.backgroundColor = .playerTwo
+            default:
+                colorView.backgroundColor = .clear
+            }
+        }
+        
+        
+        nicknameLabel.text = sender
         messageLabel.text = message
         backgroundColor = .clear
         addSubviewConstraints()

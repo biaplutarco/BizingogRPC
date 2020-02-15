@@ -9,9 +9,7 @@
 import UIKit
 import SpriteKit
 
-enum PlayerType {
-    case one, two
-}
+
 
 enum Type {
     case normal, captain
@@ -67,18 +65,20 @@ class Piece: SKShapeNode {
         switch player {
         case .one:
             offset = CGPoint(x: scale * 5, y: scale * 1)
-            self.fillColor = .orange
+            self.fillColor = .pieceOne
 
             if type == .captain {
-                self.fillColor = .red
+                self.fillColor = .pieceOneCap
             }
         case .two:
             offset = CGPoint(x: scale * 5, y: scale * 10)
-            self.fillColor = .blue
+            self.fillColor = .pieceTwo
             
             if type == .captain {
-                self.fillColor = .purple
+                self.fillColor = .pieceTwoCap
             }
+        case .none:
+            print("")
         }
         
         let rect = CGRect(x: origin.x - offset.x, y: origin.y + offset.y, width: scale * 10, height: scale * 10)

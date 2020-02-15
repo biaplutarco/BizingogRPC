@@ -60,9 +60,9 @@ class GameScene: SKScene {
         board.triangles.enumerated().forEach { i, line in
             line.enumerated().forEach { j, triangle in
                 if i < 9 {
-                    triangle.fillColor = (j % 2 == 0) ? .black : .white
+                    triangle.fillColor = (j % 2 == 0) ? .darkTriangle : .triangle
                 } else {
-                    triangle.fillColor = (j % 2 == 0) ? .white : .black
+                    triangle.fillColor = (j % 2 == 0) ? .triangle : .darkTriangle
                 }
             }
         }

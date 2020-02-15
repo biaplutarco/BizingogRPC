@@ -10,34 +10,36 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-extension GameViewController: ChatViewDelegate {
-    func didTapSend(message: String) {
-        guard let nickname = self.nickname else { return }
-        SocketIOService.shared.sendMessage(message: message, withNickname: nickname)
-        addPlayerOn()
+extension GameViewController: StartViewDelegate {
+    func change(to playerType: PlayerType) {
+        self.playerType = playerType
     }
     
-    func didTapGiveUP() {
-        exitChat()
-//        updatePlayerConnection()
+    func start() {
+        getPlayerNickname()
     }
 }
 
 class GameViewController: UIViewController {
-    var nickname: String?
-    var playersOn: PlayersOn?
+    var nickname: String!
+    var playerType: PlayerType!
     
-    var users: [[String: AnyObject]]? {
-        didSet {
-//            updatePlayerConnection()
-            addPlayerOn()
-        }
-    }
+    var playersTyped: [Player] = []
+    var players: [Player] = []
+    
+    lazy var startView: StartView = {
+        let startView = StartView()
+        startView.delegate = self
+        startView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(startView)
+        
+        return startView
+    }()
     
     lazy var chatView: ChatView = {
         let chatView = ChatView()
+        chatView.isHidden = true
         chatView.translatesAutoresizingMaskIntoConstraints = false
-        chatView.delegate = self
         view.addSubview(chatView)
         
         return chatView
@@ -45,6 +47,7 @@ class GameViewController: UIViewController {
     
     lazy var sceneView: GameSceneView = {
         let sceneView = GameSceneView()
+        sceneView.isHidden = true
         
         if let scene = GKScene(fileNamed: "GameScene") {
             if let sceneNode = scene.rootNode as! GameScene? {
@@ -61,17 +64,21 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addContrstraints()
-//        updatePlayerConnection()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        if nickname == nil {
-            getPlayerNickname()
-        }
+    private func updateUI() {
+        chatView.isHidden = false
+        sceneView.isHidden = false
+        startView.isHidden = true
     }
     
-    func addContrstraints() {
+    private func addContrstraints() {
         NSLayoutConstraint.activate([
+            startView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            startView.topAnchor.constraint(equalTo: view.topAnchor),
+            startView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            startView.widthAnchor.constraint(equalToConstant: view.frame.width/2),
+            
             sceneView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             sceneView.topAnchor.constraint(equalTo: view.topAnchor),
             sceneView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -83,98 +90,57 @@ class GameViewController: UIViewController {
             chatView.widthAnchor.constraint(equalToConstant: view.frame.width/2)
         ])
     }
+    
+    private func update(with players: [Player]) {
+        players.forEach { (player) -> Void in
+            var playerTyped = player
+            playerTyped.type = self.playerType
+            
+            self.playersTyped.append(playerTyped)
+//            if player.nickname == nickname {
+//                var playerTyped = player
+//                playerTyped.type = self.playerType
+//                
+//                self.playersTyped.append(playerTyped)
+//            }
+        }
+        
+        chatView.players = self.playersTyped
+        chatView.nickname = self.nickname
+        
+        print("Jogadores sem o tipo escolhido, apenas com tipo none", players)
+        print("Jogadores com o tipo escolhido", playersTyped)
+        
+        updateUI()
+    }
 
     func getPlayerNickname() {
         let alertController = UIAlertController(title: "SocketChat", message: "Please enter a nickname:", preferredStyle: UIAlertController.Style.alert)
 
         alertController.addTextField(configurationHandler: nil)
 
-        let OKAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) { (action) -> Void in
-               let textfield = alertController.textFields![0]
-               if textfield.text?.count == 0 {
-                   self.getPlayerNickname()
-               }
-               else {
-                   self.nickname = textfield.text
-        
-                SocketIOService.shared.connectToServerWithNickname(nickname: self.nickname!, completionHandler: { (userList) -> Void in
-                        DispatchQueue.main.async {
-                            if userList != nil {
-                                self.users = userList
-                            }
+        let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
+            let textfield = alertController.textFields![0]
+            if textfield.text?.count == 0 {
+                self.getPlayerNickname()
+            } else {
+                self.nickname = textfield.text
+            
+                SocketIOService.shared.connectToServer(with: self.nickname) { (players) in
+                    DispatchQueue.main.async {
+                        
+                        if let players = players {
+                            self.players = players
+                            self.update(with: players)
                         }
-                   })
-               }
-           }
-
-        alertController.addAction(OKAction)
+                    }
+                }
+            }
+        }
+            
+        alertController.addAction(action)
         present(alertController, animated: true, completion: nil)
     }
-    
-    func exitChat() {
-        SocketIOService.shared.exitChatWithNickname(nickname: nickname!) { () -> Void in
-            DispatchQueue.main.async {
-                self.nickname = nil
-                self.users?.removeAll()
-                self.getPlayerNickname()
-            }
-        }
-    }
-    
-    func addPlayerOn() {
-        var playerOne = Player(type: .one)
-        var playerTwo = Player(type: .two)
-        
-        guard let usersCount = users?.count else { return }
-        
-        for num in 0...(usersCount) {
-            //  Ver se tem um player conectado
-            if num == usersCount-1 {
-                let dictionary = users![num]
-                playerOne.nickname = "\(String(describing: dictionary["nickname"]))"
-
-                if "\(String(describing: dictionary["isConnected"]))" == "0" {
-                    playerOne.isConnected = false
-                } else {
-                    playerOne.isConnected = true
-                }
-            }
-            
-            //  Ver se tem um segundo player conectado
-            if num == usersCount-2 {
-                let dictionary = users![num]
-                playerTwo.nickname = "\(String(describing: dictionary["nickname"]))"
-
-                if "\(String(describing: dictionary["isConnected"]))" == "0" {
-                    playerTwo.isConnected = false
-                } else {
-                    playerTwo.isConnected = true
-                }
-            }
-        }
-        
-        playersOn = PlayersOn(playerOne: playerOne, playerTwo: playerTwo)
-    }
-    
-//    func updatePlayerConnection() {
-////        self.chatView.textView.text = ""
-//        var playerName = ""
-//        var isConnected = ""
-//
-//        self.users?.forEach({ (row) in
-//            if (row["nickname"] != nil) && (row["isConnected"] != nil) {
-//                playerName = "\(String(describing: row["nickname"]))"
-//
-//                if "\(String(describing: row["isConnected"]))" == "0" {
-//                    isConnected = "disconnected"
-//                } else {
-//                    isConnected = "connected"
-//                }
-//
-////                self.chatView.textView.text = self.chatView.textView.text + "\n\(playerName) \(isConnected)"
-//            }
-//        })
-//    }
 
     override var shouldAutorotate: Bool {
         return true
@@ -186,9 +152,5 @@ class GameViewController: UIViewController {
         } else {
             return .all
         }
-    }
-
-    override var prefersStatusBarHidden: Bool {
-        return true
     }
 }

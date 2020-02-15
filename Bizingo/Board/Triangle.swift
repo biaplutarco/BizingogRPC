@@ -52,6 +52,8 @@ class Triangle: SKShapeNode {
             let y = CGFloat(boardOrigin.y + scale + offset.y)
             
             return CGPoint(x: x + self.frame.width/2, y: y - (self.frame.width*sqrt(3))/2)
+        case .none:
+            return CGPoint()
         }
     }
         

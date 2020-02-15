@@ -8,23 +8,11 @@
 
 import UIKit
 
-struct ChatMessage {
-    
-}
-
-protocol ChatViewDelegate: class {
-    func didTapGiveUP()
-    func didTapSend(message: String)
-}
-
 class ChatView: UIView {
-    weak var delegate: ChatViewDelegate?
+    var nickname: String!
+    var players: [Player] = []
     
-    var messages: [(nickname: String, message: String)] = [] {
-        didSet {
-            self.tableView.reloadData()
-        }
-    }
+    var messages: [MessageInfo] = []
     
     lazy var restartButton: UIButton = {
         let button = UIButton()
@@ -89,26 +77,27 @@ class ChatView: UIView {
     
     init() {
         super.init(frame: CGRect.zero)
-        self.backgroundColor = .gray
+        self.backgroundColor = .white
         addSubviewConstraints()
-         getMessage()
+        getMessage()
     }
     
     @objc func didTapGiveUP(_ sender: UIButton) {
-        delegate?.didTapGiveUP()
     }
     
     @objc func didTapSend(_ sender: UIButton) {
-        delegate?.didTapSend(message: textField.text!)
-        textField.text = ""
+        if !textField.text!.isEmpty, let message = textField.text {
+            SocketIOService.shared.send(message: message, with: nickname)
+            textField.text = nil
+            textField.resignFirstResponder()
+        }
     }
     
     func getMessage() {
-        SocketIOService.shared.getChatMessage { (messageInfo) -> Void in
+        SocketIOService.shared.getChatMessage { (message) in
             DispatchQueue.main.async {
-                let nickname = messageInfo["nickname"] as! String
-                let message = messageInfo["message"] as! String
-                self.messages.append((nickname: nickname, message: message))
+                self.messages.append(message)
+                self.tableView.reloadData()
             }
         }
     }
@@ -154,15 +143,21 @@ extension ChatView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("EITA",messages)
-        return messages.count 
+        return messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ChatTableViewCell else { return UITableViewCell() }
         
-        let message = messages[indexPath.row]
-        cell.setup(with: message.nickname, message: message.message)
+        let content = messages[indexPath.row].content
+        let sender = messages[indexPath.row].sender
+        
+        let player = players.filter { (player) -> Bool in
+            player.nickname == self.nickname
+        }
+        
+        
+        cell.setup(with: content, sender: sender, and: player.first!)
         
         return cell
     }

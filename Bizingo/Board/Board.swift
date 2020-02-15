@@ -1,5 +1,5 @@
 //
-//  BizingoBoard.swift
+//  Board.swift
 //  Bizingo
 //
 //  Created by Beatriz Plutarco on 05/02/20.
@@ -11,10 +11,6 @@ import SpriteKit
 
 class Board {
     var triangles: [[Triangle]] = []
-    
-//    var playerOne: Player
-//    var playerTwo: Player
-    
     var playerOnePieces: [Piece] = []
     var playerTwoPieces: [Piece] = []
     
@@ -26,8 +22,6 @@ class Board {
         self.origin = CGPoint(x: 0, y: 300)
         
         for _ in 0...11 { triangles.append([]) }
-//        for _ in 0...18{ playerOnePieces.append([]) }
-//        for _ in 0...18{ playerTwoPieces.append([]) }
         
         drawBoard()
         addPieces()
@@ -77,6 +71,7 @@ class Board {
                 let triangle = Triangle(boardOrigin: origin, offset: offset, index: index,
                                         direction: .reverse, scale: scale)
                 self.triangles[index.i].append(triangle)
+                
             } else {
                 let triangle = Triangle(boardOrigin: origin, offset: offset, index: index,
                                         direction: .normal, scale: scale)
@@ -97,40 +92,33 @@ class Board {
     
     //  Adicionar peças ao tabuleiro
     private func addPieces() {
+        
         triangles.forEach { row in
             row.forEach { triangle in
                 if Index.playerOne.contains(triangle.index) {
-                    triangle.isEmpty = false
-
-//                    for num in 0...(playerOnePieces.count - 1) {
-                    let piece = Piece(origin: triangle.getCenter(to: .one), scale: scale, initialIndex: triangle.index, player: .one, type: .normal)
-
-                        self.playerOnePieces.append(piece)
-//                    }
-                } else if Index.playerOneCaptains.contains(triangle.index) {
-                    triangle.isEmpty = false
-
-//                    for num in 0...(playerOnePieces.count - 1) {
-                        let piece = Piece(origin: triangle.getCenter(to: .one), scale: scale, initialIndex: triangle.index, player: .one, type: .captain)
-
-                        self.playerOnePieces.append(piece)
-//                    }
-                } else if Index.playerTwo.contains(triangle.index) {
-                    triangle.isEmpty = false
                     
-//                    for num in 0...(playerTwoPieces.count - 1) {
-                        let piece = Piece(origin: triangle.getCenter(to: .two), scale: scale, initialIndex: triangle.index, player: .two, type: .normal)
-
-                        self.playerTwoPieces.append(piece)
-//                    }
-                } else if Index.playerTwoCaptains.contains(triangle.index) {
                     triangle.isEmpty = false
-
-//                    for num in 0...(playerTwoPieces.count - 1) {
-                        let piece = Piece(origin: triangle.getCenter(to: .two), scale: scale, initialIndex: triangle.index, player: .two, type: .captain)
-
-                        self.playerTwoPieces.append(piece)
-//                    }
+                    let piece = Piece(origin: triangle.getCenter(to: .one), scale: scale, initialIndex: triangle.index, player: .one, type: .normal)
+                    self.playerOnePieces.append(piece)
+                    
+                } else if Index.playerOneCaptains.contains(triangle.index) {
+            
+                    triangle.isEmpty = false
+                    let piece = Piece(origin: triangle.getCenter(to: .one), scale: scale, initialIndex: triangle.index, player: .one, type: .captain)
+                    self.playerOnePieces.append(piece)
+                    
+                } else if Index.playerTwo.contains(triangle.index) {
+                    
+                    triangle.isEmpty = false
+                    let piece = Piece(origin: triangle.getCenter(to: .two), scale: scale, initialIndex: triangle.index, player: .two, type: .normal)
+                    self.playerTwoPieces.append(piece)
+                    
+                } else if Index.playerTwoCaptains.contains(triangle.index) {
+                    
+                    triangle.isEmpty = false
+                    let piece = Piece(origin: triangle.getCenter(to: .two), scale: scale, initialIndex: triangle.index, player: .two, type: .captain)
+                    self.playerTwoPieces.append(piece)
+                    
                 }
             }
         }
