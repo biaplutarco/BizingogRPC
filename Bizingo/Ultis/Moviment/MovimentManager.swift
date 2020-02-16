@@ -14,8 +14,8 @@ struct MovimentManager {
     let kill = KillMoviment()
     let board: Board
     
-    func move(piece: Piece, to index: Index) {
-        piece.move(to: index)
+    func move(piece: Piece, to index: Index, in point: CGPoint) {
+        piece.move(to: index, in: point)
     }
     
     //  Mostrar as possiveis casas que uma peça selecionada pode ir em um tabuleiro

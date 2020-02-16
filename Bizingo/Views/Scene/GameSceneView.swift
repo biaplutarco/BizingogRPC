@@ -13,7 +13,7 @@ import GameplayKit
 class GameSceneView: SKView {
     var player: Player! {
         didSet {
-            self.gameScene?.player = self.player
+            GameScene.player = self.player
         }
     }
     

@@ -9,14 +9,7 @@
 import Foundation
 
 struct Move: Codable {
-    
-    var from: Coordinate
-    var to: Coordinate
-    
-    struct Coordinate: Codable {
-        var row: Int
-        var column: Int
-    }
-    
+    var from: Index
+    var to: Index
 }
 

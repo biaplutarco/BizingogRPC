@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Index {
+struct Index: Codable {
     var i: Int
     var j: Int
     

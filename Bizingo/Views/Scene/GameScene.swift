@@ -11,8 +11,10 @@ import CoreGraphics
 import GameplayKit
 
 class GameScene: SKScene {
-    var player: Player!
-    
+    static var player: Player!
+    static var currentTriangle: Triangle!
+    static var currentBoard: Board = Board()
+
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
     var possibleMoves = [Index]()
@@ -32,7 +34,7 @@ class GameScene: SKScene {
     }
     
     private func buildBizingoBoard() {
-        self.board = Board()
+        self.board = GameScene.currentBoard
         self.moveManager = MovimentManager(board: board)
         
         board.triangles.forEach { row in
@@ -71,11 +73,11 @@ class GameScene: SKScene {
         
         var pieces = [Piece]()
         
-        if player.type == .one {
+        if GameScene.player.type == .one {
             board.playerOnePieces.forEach { onePieces in
                 pieces.append(onePieces)
             }
-        } else if player.type == .two {
+        } else if GameScene.player.type == .two {
             board.playerTwoPieces.forEach { onePieces in
                 pieces.append(onePieces)
             }
@@ -94,42 +96,20 @@ class GameScene: SKScene {
                 }
                 
                 if let piece = self.selectedPiece, triangle.contains(point) && triangle.isEmpty == true {
-                    self.moveManager.move(piece: piece, to: triangle.index)
+                    print(point)
+                    print(triangle.index)
+                    
+                    GameScene.currentTriangle = triangle
+                    self.moveManager.move(piece: piece, to: triangle.index,
+                                          in: triangle.getCenter(to: GameScene.player.type))
                 }
             }
         }
     }
     
-    func updatePiece() {
-//        if isSelecting {
-//            board.playerOnePieces.forEach { line in
-//                line.forEach { piece in
-//                    if piece.currentIndex.i < 8 {
-//                        board.isPieceDead(piece, at: .others)
-//                    } else if piece.currentIndex.i == 8 {
-//                        board.isPieceDead(piece, at: .L8)
-//                    } else if piece.currentIndex.i == 9 {
-//                        board.isPieceDead(piece, at: .L9)
-//                    } else if piece.currentIndex.i == 10 {
-//                        board.isPieceDead(piece, at: .L10)
-//                    }
-//                }
-//            }
-//            self.isSelecting = false
-//        }
-    }
         
     func touchDown(atPoint point: CGPoint) {
         isSelecting = true
-        
-//        board.triangles.enumerated().forEach { i, line in
-//            line.enumerated().forEach { j, triangle in
-//                if triangle.contains(point) && self.possibleMoves.contains(triangle.index) {
-//
-//                }
-//            }
-//        }
-        
         selectedTriangle(at: point)
     }
         

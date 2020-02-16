@@ -3,4 +3,246 @@
    uuid = "9B1D1D4A-45F5-4DF6-988E-E2C5939ED232"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C0A1F69A-605C-4039-AED5-BCF4562D6464"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Bizingo/Views/Chat/ChatView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "didSendMoviment(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C0A1F69A-605C-4039-AED5-BCF4562D6464 - 93bd3ae45b5dab3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Bizingo.ChatView.didSendMoviment(__C.UIButton) -&gt; ()"
+                  moduleName = "Bizingo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nihil/Documents/Bizingo/Bizingo/Views/Chat/ChatView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "146"
+                  endingLineNumber = "146"
+                  offsetFromSymbolStart = "43">
+               </Location>
+               <Location
+                  uuid = "C0A1F69A-605C-4039-AED5-BCF4562D6464 - c883a2f060cfe1b2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Bizingo.Piece) -&gt; () in Bizingo.ChatView.didSendMoviment(__C.UIButton) -&gt; ()"
+                  moduleName = "Bizingo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nihil/Documents/Bizingo/Bizingo/Views/Chat/ChatView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "146"
+                  endingLineNumber = "146"
+                  offsetFromSymbolStart = "19">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "99A64D78-AF50-4748-B762-EE0DBC2A4A75"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Bizingo/Views/Chat/ChatView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "didSendMoviment(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "99A64D78-AF50-4748-B762-EE0DBC2A4A75 - 93bd3ae45b5dab3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Bizingo.ChatView.didSendMoviment(__C.UIButton) -&gt; ()"
+                  moduleName = "Bizingo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nihil/Documents/Bizingo/Bizingo/Views/Chat/ChatView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "149"
+                  endingLineNumber = "149"
+                  offsetFromSymbolStart = "398">
+               </Location>
+               <Location
+                  uuid = "99A64D78-AF50-4748-B762-EE0DBC2A4A75 - 800176af29022fb3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Bizingo.Piece) -&gt; () in Bizingo.ChatView.didSendMoviment(__C.UIButton) -&gt; ()"
+                  moduleName = "Bizingo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nihil/Documents/Bizingo/Bizingo/Views/Chat/ChatView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "149"
+                  endingLineNumber = "149"
+                  offsetFromSymbolStart = "19">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FDC04DE3-90CC-4FBD-8614-BF8FCA12DD01"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Bizingo/Views/Chat/ChatView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
+            landmarkName = "didSendMoviment(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EE56A6F6-4443-45E9-A29D-6A24DFD10DE2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Bizingo/Views/Chat/ChatView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
+            landmarkName = "didSendMoviment(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "EE56A6F6-4443-45E9-A29D-6A24DFD10DE2 - 93bd3ae45b5dab3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Bizingo.ChatView.didSendMoviment(__C.UIButton) -&gt; ()"
+                  moduleName = "Bizingo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nihil/Documents/Bizingo/Bizingo/Views/Chat/ChatView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "146"
+                  endingLineNumber = "146"
+                  offsetFromSymbolStart = "43">
+               </Location>
+               <Location
+                  uuid = "EE56A6F6-4443-45E9-A29D-6A24DFD10DE2 - c883a2f060cfe1b2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Bizingo.Piece) -&gt; () in Bizingo.ChatView.didSendMoviment(__C.UIButton) -&gt; ()"
+                  moduleName = "Bizingo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nihil/Documents/Bizingo/Bizingo/Views/Chat/ChatView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "146"
+                  endingLineNumber = "146"
+                  offsetFromSymbolStart = "19">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0B3BB429-AAC5-40F9-B3DA-F945E815924D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Bizingo/Views/Scene/Board/Piece.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "updatePosition()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "46BCDD7C-86B8-4FE2-B22F-E780B80ED6E6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Bizingo/Views/Scene/Board/Piece.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "updatePosition()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "208157B0-D3C4-4158-86E0-BE0C86A576B8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Bizingo/Views/Scene/Board/Piece.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "updatePosition()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "208157B0-D3C4-4158-86E0-BE0C86A576B8 - 1dcbf46690c64bf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Bizingo.Piece.updatePosition() -&gt; ()"
+                  moduleName = "Bizingo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nihil/Documents/Bizingo/Bizingo/Views/Scene/Board/Piece.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "110"
+                  endingLineNumber = "110"
+                  offsetFromSymbolStart = "30">
+               </Location>
+               <Location
+                  uuid = "208157B0-D3C4-4158-86E0-BE0C86A576B8 - 9b0c849146810685"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Bizingo.Move&gt;) -&gt; () in Bizingo.Piece.updatePosition() -&gt; ()"
+                  moduleName = "Bizingo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nihil/Documents/Bizingo/Bizingo/Views/Scene/Board/Piece.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "111"
+                  endingLineNumber = "111"
+                  offsetFromSymbolStart = "111">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

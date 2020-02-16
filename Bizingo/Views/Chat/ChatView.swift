@@ -55,6 +55,18 @@ class ChatView: UIView {
         return button
     }()
     
+    lazy var sendMovimentButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Enviar Movimento", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 10
+        button.addTarget(self, action: #selector(didSendMoviment(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(button)
+        
+        return button
+    }()
+    
     lazy var giveUpButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .start
@@ -117,7 +129,6 @@ class ChatView: UIView {
     }
     
     @objc func didTapRestart(_ sender: UIButton) {
-//        SocketIOService.shared.exit(player: player.nickname)
         self.delegate?.didTapRestart()
     }
     
@@ -129,9 +140,20 @@ class ChatView: UIView {
         }
     }
     
+    @objc func didSendMoviment(_ sender: UIButton) {
+//        if player.type == .one {
+//            GameScene.currentBoard.playerOnePieces.forEach { $0.sendMove() }
+            GameScene.currentBoard.playerTwoPieces.forEach({ $0.updatePosition() })
+//        } else {
+//            GameScene.currentBoard.playerTwoPieces.forEach { $0.sendMove() }
+            GameScene.currentBoard.playerOnePieces.forEach({ $0.updatePosition() })
+//        }
+    }
+    
     private func updateUI(to color: UIColor) {
         sendButton.backgroundColor = color
         restartButton.backgroundColor = color
+        sendMovimentButton.backgroundColor = color
     }
     
     func getMessage() {
@@ -150,8 +172,13 @@ class ChatView: UIView {
             separatorView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             separatorView.heightAnchor.constraint(equalToConstant: 60),
             
+            sendMovimentButton.topAnchor.constraint(equalTo: separatorView.topAnchor, constant: 10),
+            sendMovimentButton.leadingAnchor.constraint(equalTo: separatorView.leadingAnchor, constant: 10),
+            sendMovimentButton.widthAnchor.constraint(equalToConstant: 200),
+            sendMovimentButton.heightAnchor.constraint(equalToConstant: 40),
+            
             restartButton.topAnchor.constraint(equalTo: separatorView.topAnchor, constant: 10),
-            restartButton.leadingAnchor.constraint(equalTo: separatorView.leadingAnchor, constant: 10),
+            restartButton.leadingAnchor.constraint(equalTo: sendMovimentButton.trailingAnchor, constant: 10),
             restartButton.trailingAnchor.constraint(equalTo: giveUpButton.leadingAnchor, constant: -10),
             restartButton.heightAnchor.constraint(equalToConstant: 40),
             
