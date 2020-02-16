@@ -19,7 +19,8 @@ class StartView: UIView {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Escolha um jogador:"
-        label.font = UIFont.boldSystemFont(ofSize: 32)
+        label.textColor = .start
+        label.font = UIFont.boldSystemFont(ofSize: 28)
         label.translatesAutoresizingMaskIntoConstraints = false
         addSubview(label)
         
@@ -28,7 +29,7 @@ class StartView: UIView {
     
     lazy var startButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .red
+        button.isHidden = true
         button.setTitle("Começar", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 10
@@ -41,6 +42,7 @@ class StartView: UIView {
     
     lazy var playerSegmented: UISegmentedControl = {
         let segmented = UISegmentedControl()
+        segmented.tintColor = .start
         segmented.insertSegment(withTitle: "Jogador 1", at: 0, animated: true)
         segmented.insertSegment(withTitle: "Jogador 2", at: 1, animated: true)
         segmented.addTarget(self, action: #selector(change), for: .valueChanged)
@@ -52,7 +54,7 @@ class StartView: UIView {
     
     init() {
         super.init(frame: CGRect.zero)
-        self.backgroundColor = .white
+        self.backgroundColor = .darkTriangle
         addSubviewConstraints()
     }
     
@@ -67,23 +69,33 @@ class StartView: UIView {
     @objc func change() {
         switch playerSegmented.selectedSegmentIndex {
         case 1:
+            updateUI(to: .playerTwo)
             delegate?.change(to: .two)
         default:
+            updateUI(to: .playerOne)
             delegate?.change(to: .one)
         }
     }
     
+    private func updateUI(to color: UIColor) {
+        startButton.isHidden = false
+        playerSegmented.tintColor = color
+        startButton.backgroundColor = color
+        titleLabel.textColor = color
+    }
+    
     func addSubviewConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 100),
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            playerSegmented.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
+            playerSegmented.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 50),
+            playerSegmented.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -50),
             playerSegmented.centerXAnchor.constraint(equalTo: centerXAnchor),
+            playerSegmented.widthAnchor.constraint(equalToConstant: 200),
             
-            startButton.topAnchor.constraint(equalTo: playerSegmented.bottomAnchor, constant: 30),
+            startButton.topAnchor.constraint(equalTo: playerSegmented.bottomAnchor, constant: 50),
             startButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-        
+            startButton.widthAnchor.constraint(equalToConstant: 200)
         ])
     }
 }

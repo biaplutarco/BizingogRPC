@@ -9,6 +9,14 @@
 import UIKit
 
 extension UIColor {
+    open class var textfield: UIColor {
+        return UIColor.init(named: "Textfield") ?? UIColor.black
+    }
+    
+    open class var start: UIColor {
+        return UIColor.init(named: "Start") ?? UIColor.black
+    }
+    
     open class var darkTriangle: UIColor {
         return UIColor.init(named: "DarkTriangle") ?? UIColor.black
     }

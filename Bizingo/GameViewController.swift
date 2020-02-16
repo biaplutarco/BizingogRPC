@@ -21,6 +21,11 @@ extension GameViewController: StartViewDelegate {
 }
 
 extension GameViewController: ChatViewDelegate {
+    func didTapRestart() {
+        updateStartView(to: true)
+        player = nil
+    }
+    
     func didTapGiveUp() {
         getLoserNickname()
         alertLoser()
@@ -84,7 +89,15 @@ class GameViewController: UIViewController {
     private func updateStartView(to bool: Bool) {
         chatView.isHidden = bool
         sceneView.isHidden = bool
-        startView.isHidden = !bool
+        
+        if bool {
+            startView = StartView()
+            startView.delegate = self
+            view.addSubview(startView)
+            addStartViewConstraints()
+        } else {
+            startView.removeFromSuperview()
+        }
     }
     
     //  Atualiza o player on
@@ -150,6 +163,8 @@ class GameViewController: UIViewController {
         let message = "Às vezes, a melhor coisa a se fazer é desistir mesmo. Boa sorte na proxima!"
         let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
             self.updateStartView(to: true)
+            SocketIOService.shared.exitPlayer(with: self.player.nickname)
+            self.player = nil
         }
         
         self.createAlertWith(title: title, message: message, action: action)
@@ -170,9 +185,22 @@ class GameViewController: UIViewController {
         let message = "O jogador \(loserNickname!) desistiu. Parabéns você cansou ele!"
         let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
             self.updateStartView(to: true)
+            SocketIOService.shared.exitPlayer(with: self.player.nickname)
+            self.player = nil
         }
         
         self.createAlertWith(title: title, message: message, action: action)
+    }
+    
+    private func addStartViewConstraints() {
+        startView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            startView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            startView.topAnchor.constraint(equalTo: view.topAnchor),
+            startView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            startView.widthAnchor.constraint(equalToConstant: view.frame.width),
+        ])
     }
     
     private func addContrstraints() {
@@ -180,7 +208,7 @@ class GameViewController: UIViewController {
             startView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             startView.topAnchor.constraint(equalTo: view.topAnchor),
             startView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            startView.widthAnchor.constraint(equalToConstant: view.frame.width/2),
+            startView.widthAnchor.constraint(equalToConstant: view.frame.width),
             
             sceneView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             sceneView.topAnchor.constraint(equalTo: view.topAnchor),

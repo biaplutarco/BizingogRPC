@@ -9,7 +9,8 @@
 import UIKit
 
 class ChatTableViewCell: UITableViewCell {
-   lazy var nicknameLabel: UILabel = {
+    
+    lazy var nicknameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -29,7 +30,7 @@ class ChatTableViewCell: UITableViewCell {
     
     lazy var colorView: UIView = {
            let view = UIView()
-           view.backgroundColor = .lightGray
+           view.backgroundColor = .textfield
            view.layer.cornerRadius = 20
            view.translatesAutoresizingMaskIntoConstraints = false
            addSubview(view)
