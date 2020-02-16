@@ -117,7 +117,7 @@ class ChatView: UIView {
     }
     
     @objc func didTapRestart(_ sender: UIButton) {
-        SocketIOService.shared.exit(player: player.nickname)
+//        SocketIOService.shared.exit(player: player.nickname)
         self.delegate?.didTapRestart()
     }
     

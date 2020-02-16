@@ -56,6 +56,7 @@ class StartView: UIView {
         super.init(frame: CGRect.zero)
         self.backgroundColor = .darkTriangle
         addSubviewConstraints()
+        SocketIOService.shared.establishConnection()
     }
     
     required init?(coder: NSCoder) {

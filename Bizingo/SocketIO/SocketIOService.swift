@@ -47,8 +47,9 @@ class SocketIOService: NSObject {
     }
     
     //  Desconnect
-    func exit(player nickname: String) {
+    func exit(player nickname: String, completion: @escaping () -> Void) {
         socket.emit("exitUser", nickname)
+        completion()
     }
     
     //  Chat
