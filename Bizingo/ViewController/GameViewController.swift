@@ -10,28 +10,6 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-extension GameViewController: StartViewDelegate {
-    func change(to playerType: PlayerType) {
-        self.playerType = playerType
-    }
-    
-    func start() {
-        getPlayerNickname()
-    }
-}
-
-extension GameViewController: ChatViewDelegate {
-    func didTapRestart() {
-        updateStartView(to: true)
-        player = nil
-    }
-    
-    func didTapGiveUp() {
-        getLoserNickname()
-        alertLoser()
-    }
-}
-
 class GameViewController: UIViewController {
     var nickname: String!
     var player: Player!
@@ -68,11 +46,7 @@ class GameViewController: UIViewController {
         let sceneView = GameSceneView()
         sceneView.isHidden = true
         
-        if let scene = GKScene(fileNamed: "GameScene") {
-            if let sceneNode = scene.rootNode as! GameScene? {
-                sceneView.gameScene = sceneNode
-            }
-        }
+        createGameScene(to: sceneView)
     
         sceneView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(sceneView)
@@ -86,15 +60,12 @@ class GameViewController: UIViewController {
         getLoserNickname()
     }
     
-    private func updateStartView(to bool: Bool) {
+    func updateStartView(to bool: Bool) {
         chatView.isHidden = bool
         sceneView.isHidden = bool
         
         if bool {
-            startView = StartView()
-            startView.delegate = self
-            view.addSubview(startView)
-            addStartViewConstraints()
+            restartGame()
         } else {
             startView.removeFromSuperview()
         }
@@ -150,7 +121,7 @@ class GameViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    private func createAlertWith(title: String, message: String, action: UIAlertAction) {
+    func createAlertWith(title: String, message: String, action: UIAlertAction) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         
         alertController.addAction(action)
@@ -158,7 +129,7 @@ class GameViewController: UIViewController {
     }
     
     //  Cria o alerta para o player que desistiu
-    private func alertLoser() {
+    func alertLoser() {
         let title = "Você PERDEU!"
         let message = "Às vezes, a melhor coisa a se fazer é desistir mesmo. Boa sorte na proxima!"
         let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
@@ -171,7 +142,7 @@ class GameViewController: UIViewController {
     }
     
     //  Pega o nome do player que desistiu
-    private func getLoserNickname() {
+    func getLoserNickname() {
         SocketIOService.shared.getLoserNickname { (nickname) in
             if let nickname = nickname {
                 self.loserNickname = nickname
@@ -180,7 +151,7 @@ class GameViewController: UIViewController {
     }
     
     //  Cria o alerta do player ganhador
-    private func alertWinner() {
+    func alertWinner() {
         let title = "Você VENCEU!"
         let message = "O jogador \(loserNickname!) desistiu. Parabéns você cansou ele!"
         let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
@@ -190,6 +161,23 @@ class GameViewController: UIViewController {
         }
         
         self.createAlertWith(title: title, message: message, action: action)
+    }
+    
+    private func restartGame() {
+        startView = StartView()
+        startView.delegate = self
+        view.addSubview(startView)
+        addStartViewConstraints()
+    
+        createGameScene(to: sceneView)
+    }
+    
+    func createGameScene(to sceneView: GameSceneView) {
+        if let scene = GKScene(fileNamed: "GameScene") {
+            if let sceneNode = scene.rootNode as! GameScene? {
+                sceneView.gameScene = sceneNode
+            }
+        }
     }
     
     private func addStartViewConstraints() {

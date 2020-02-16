@@ -19,7 +19,6 @@
 		A4079A8123EC772B002F4253 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4079A8023EC772B002F4253 /* Triangle.swift */; };
 		A4079A8323EC8ECE002F4253 /* WalkMoviment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4079A8223EC8ECE002F4253 /* WalkMoviment.swift */; };
 		A418E9BD23F5B6BE00F6CED9 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A418E9BC23F5B6BE00F6CED9 /* ChatTableViewCell.swift */; };
-		A418E9BF23F5CA5200F6CED9 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A418E9BE23F5CA5200F6CED9 /* StartViewController.swift */; };
 		A4442F0723F871B600094D8E /* UIColor+AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4442F0623F871B500094D8E /* UIColor+AppColors.swift */; };
 		A4442F0923F87C2000094D8E /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4442F0823F87C2000094D8E /* StartView.swift */; };
 		A4442F0B23F87CBF00094D8E /* MessageInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4442F0A23F87CBF00094D8E /* MessageInfo.swift */; };
@@ -31,6 +30,7 @@
 		A457DD6223F47972000825F5 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457DD6123F47972000825F5 /* ChatView.swift */; };
 		A4E0BC6F23EF288C0017ED08 /* Index.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E0BC6E23EF288C0017ED08 /* Index.swift */; };
 		A4EBD0CE23EDA6A60028EA54 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EBD0CD23EDA6A60028EA54 /* Piece.swift */; };
+		A4EC0C8723F9B36300E23EB5 /* GVC+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC0C8623F9B36300E23EB5 /* GVC+Delegate.swift */; };
 		A4EC912E23ECE4A100C2B53C /* KillMoviment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC912D23ECE4A100C2B53C /* KillMoviment.swift */; };
 		A4EC913523ECEB9300C2B53C /* MovimentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC913423ECEB9300C2B53C /* MovimentManager.swift */; };
 		A4FD0F1623EA3880008BF4EA /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FD0F1523EA3880008BF4EA /* Board.swift */; };
@@ -72,7 +72,6 @@
 		A4079A8023EC772B002F4253 /* Triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
 		A4079A8223EC8ECE002F4253 /* WalkMoviment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkMoviment.swift; sourceTree = "<group>"; };
 		A418E9BC23F5B6BE00F6CED9 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
-		A418E9BE23F5CA5200F6CED9 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		A4442F0623F871B500094D8E /* UIColor+AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColors.swift"; sourceTree = "<group>"; };
 		A4442F0823F87C2000094D8E /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		A4442F0A23F87CBF00094D8E /* MessageInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageInfo.swift; sourceTree = "<group>"; };
@@ -83,6 +82,7 @@
 		A457DD6123F47972000825F5 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		A4E0BC6E23EF288C0017ED08 /* Index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Index.swift; sourceTree = "<group>"; };
 		A4EBD0CD23EDA6A60028EA54 /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
+		A4EC0C8623F9B36300E23EB5 /* GVC+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GVC+Delegate.swift"; sourceTree = "<group>"; };
 		A4EC912D23ECE4A100C2B53C /* KillMoviment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KillMoviment.swift; sourceTree = "<group>"; };
 		A4EC913423ECEB9300C2B53C /* MovimentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovimentManager.swift; sourceTree = "<group>"; };
 		A4FD0F1523EA3880008BF4EA /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
@@ -140,8 +140,7 @@
 				645106D423E4986D0024C68B /* AppDelegate.swift */,
 				645106D623E4986D0024C68B /* GameScene.sks */,
 				645106D823E4986D0024C68B /* Actions.sks */,
-				A418E9BE23F5CA5200F6CED9 /* StartViewController.swift */,
-				645106DC23E4986D0024C68B /* GameViewController.swift */,
+				A4EC0C8523F9B33700E23EB5 /* ViewController */,
 				A4442F0323F8705000094D8E /* SocketIO */,
 				A457DD6023F4795E000825F5 /* Views */,
 				A457DD5F23F4779E000825F5 /* Scene */,
@@ -218,6 +217,15 @@
 				A418E9BC23F5B6BE00F6CED9 /* ChatTableViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		A4EC0C8523F9B33700E23EB5 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				645106DC23E4986D0024C68B /* GameViewController.swift */,
+				A4EC0C8623F9B36300E23EB5 /* GVC+Delegate.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		A4EC913123ECE6F700C2B53C /* Board */ = {
@@ -380,7 +388,6 @@
 			files = (
 				A4442F1023F884B000094D8E /* Move.swift in Sources */,
 				A457DD5323F312E9000825F5 /* Player.swift in Sources */,
-				A418E9BF23F5CA5200F6CED9 /* StartViewController.swift in Sources */,
 				645106DB23E4986D0024C68B /* GameScene.swift in Sources */,
 				A457DD5C23F33D66000825F5 /* SocketIOService.swift in Sources */,
 				A457DD5E23F471DC000825F5 /* GameSceneView.swift in Sources */,
@@ -393,6 +400,7 @@
 				A4E0BC6F23EF288C0017ED08 /* Index.swift in Sources */,
 				A4079A8123EC772B002F4253 /* Triangle.swift in Sources */,
 				645106DD23E4986D0024C68B /* GameViewController.swift in Sources */,
+				A4EC0C8723F9B36300E23EB5 /* GVC+Delegate.swift in Sources */,
 				A4EC913523ECEB9300C2B53C /* MovimentManager.swift in Sources */,
 				A418E9BD23F5B6BE00F6CED9 /* ChatTableViewCell.swift in Sources */,
 				A4EC912E23ECE4A100C2B53C /* KillMoviment.swift in Sources */,
