@@ -20,12 +20,25 @@ extension GameViewController: StartViewDelegate {
     }
 }
 
+extension GameViewController: ChatViewDelegate {
+    func didTapGiveUp() {
+        getLoserNickname()
+        alertLoser()
+    }
+}
+
 class GameViewController: UIViewController {
     var nickname: String!
+    var player: Player!
     var playerType: PlayerType!
-    
     var playersTyped: [Player] = []
     var players: [Player] = []
+    
+    var loserNickname: String! {
+        didSet {
+            alertWinner()
+        }
+    }
     
     lazy var startView: StartView = {
         let startView = StartView()
@@ -38,6 +51,7 @@ class GameViewController: UIViewController {
     
     lazy var chatView: ChatView = {
         let chatView = ChatView()
+        chatView.delegate = self
         chatView.isHidden = true
         chatView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(chatView)
@@ -54,7 +68,7 @@ class GameViewController: UIViewController {
                 sceneView.gameScene = sceneNode
             }
         }
-        
+    
         sceneView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(sceneView)
         
@@ -64,12 +78,101 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addContrstraints()
+        getLoserNickname()
     }
     
-    private func updateUI() {
-        chatView.isHidden = false
-        sceneView.isHidden = false
-        startView.isHidden = true
+    private func updateStartView(to bool: Bool) {
+        chatView.isHidden = bool
+        sceneView.isHidden = bool
+        startView.isHidden = !bool
+    }
+    
+    //  Atualiza o player on
+    private func update(with players: [Player], backToBeing bool: Bool) {
+        players.forEach { (player) -> Void in
+            var playerTyped = player
+            playerTyped.type = self.playerType
+            
+            self.playersTyped.append(playerTyped)
+        }
+        
+        chatView.players = self.playersTyped
+        
+        self.playersTyped.forEach { (player) -> Void in
+            if player.nickname == self.nickname {
+                self.player = player
+                self.chatView.player = player
+                self.sceneView.player = player
+            }
+        }
+        
+        updateStartView(to: bool)
+    }
+    
+    //  Pegar o nome do player e criar um player
+    func getPlayerNickname() {
+        let alertController = UIAlertController(title: "Nickname", message: "Por favor, escreva o seu nickname:", preferredStyle: UIAlertController.Style.alert)
+
+        alertController.addTextField(configurationHandler: nil)
+
+        let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
+            let textfield = alertController.textFields![0]
+            if textfield.text?.count == 0 {
+                self.getPlayerNickname()
+            } else {
+                self.nickname = textfield.text
+            
+                SocketIOService.shared.connectToServer(with: self.nickname) { (players) in
+                    DispatchQueue.main.async {
+                        if let players = players {
+                            self.players = players
+                            self.update(with: players, backToBeing: false)
+                        }
+                    }
+                }
+            }
+        }
+        
+        alertController.addAction(action)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    private func createAlertWith(title: String, message: String, action: UIAlertAction) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
+        alertController.addAction(action)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    //  Cria o alerta para o player que desistiu
+    private func alertLoser() {
+        let title = "Você PERDEU!"
+        let message = "Às vezes, a melhor coisa a se fazer é desistir mesmo. Boa sorte na proxima!"
+        let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
+            self.updateStartView(to: true)
+        }
+        
+        self.createAlertWith(title: title, message: message, action: action)
+    }
+    
+    //  Pega o nome do player que desistiu
+    private func getLoserNickname() {
+        SocketIOService.shared.getLoserNickname { (nickname) in
+            if let nickname = nickname {
+                self.loserNickname = nickname
+            }
+        }
+    }
+    
+    //  Cria o alerta do player ganhador
+    private func alertWinner() {
+        let title = "Você VENCEU!"
+        let message = "O jogador \(loserNickname!) desistiu. Parabéns você cansou ele!"
+        let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
+            self.updateStartView(to: true)
+        }
+        
+        self.createAlertWith(title: title, message: message, action: action)
     }
     
     private func addContrstraints() {
@@ -89,55 +192,6 @@ class GameViewController: UIViewController {
             chatView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             chatView.widthAnchor.constraint(equalToConstant: view.frame.width/2)
         ])
-    }
-    
-    private func update(with players: [Player]) {
-        players.forEach { (player) -> Void in
-            var playerTyped = player
-            playerTyped.type = self.playerType
-            
-            self.playersTyped.append(playerTyped)
-        }
-        
-        chatView.players = self.playersTyped
-//        chatView.nickname = self.nickname
-        
-        self.playersTyped.forEach { (player) -> Void in
-            if player.nickname == self.nickname {
-                self.chatView.player = player
-                self.sceneView.player = player
-            }
-        }
-        
-        updateUI()
-    }
-
-    func getPlayerNickname() {
-        let alertController = UIAlertController(title: "SocketChat", message: "Please enter a nickname:", preferredStyle: UIAlertController.Style.alert)
-
-        alertController.addTextField(configurationHandler: nil)
-
-        let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
-            let textfield = alertController.textFields![0]
-            if textfield.text?.count == 0 {
-                self.getPlayerNickname()
-            } else {
-                self.nickname = textfield.text
-            
-                SocketIOService.shared.connectToServer(with: self.nickname) { (players) in
-                    DispatchQueue.main.async {
-                        
-                        if let players = players {
-                            self.players = players
-                            self.update(with: players)
-                        }
-                    }
-                }
-            }
-        }
-            
-        alertController.addAction(action)
-        present(alertController, animated: true, completion: nil)
     }
 
     override var shouldAutorotate: Bool {

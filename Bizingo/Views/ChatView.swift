@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol ChatViewDelegate: class {
+    func didTapGiveUp()
+}
+
 class ChatView: UIView {
+    weak var delegate: ChatViewDelegate?
+    
     var player: Player!
     var players: [Player] = []
     
@@ -83,6 +89,8 @@ class ChatView: UIView {
     }
     
     @objc func didTapGiveUP(_ sender: UIButton) {
+        SocketIOService.shared.send(loser: self.player.nickname)
+        self.delegate?.didTapGiveUp()
     }
     
     @objc func didTapSend(_ sender: UIButton) {

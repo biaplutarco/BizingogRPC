@@ -82,7 +82,7 @@ class StartView: UIView {
             playerSegmented.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             startButton.topAnchor.constraint(equalTo: playerSegmented.bottomAnchor, constant: 30),
-            startButton.centerXAnchor.constraint(equalTo: centerXAnchor)
+            startButton.centerXAnchor.constraint(equalTo: centerXAnchor),
         
         ])
     }

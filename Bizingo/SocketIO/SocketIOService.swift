@@ -39,13 +39,6 @@ class SocketIOService: NSObject {
     
     //  Connect
     func connectToServer(with nickname: String, completion: @escaping ([Player]?) -> Void) {
-//        socket.emit("connectUser", nickname)
-//        //
-//                socket.on("userList") { (dataArray, ack) in
-//                    completionHandler(dataArray[0] as? [[String : AnyObject]])
-//                }
-        
-        
         socket.emit("connectUser", nickname)
         socket.on("userList") { (data, _) in
             let players = (data[0] as? [[String: AnyObject]])?.map(Player.init)
@@ -84,66 +77,15 @@ class SocketIOService: NSObject {
         }
     }
     
+    // Give Up
+    func send(loser nickname: String) {
+        socket.emit("giveUp", nickname)
+    }
     
-//    let manager = SocketManager(socketURL: URL(string: "http://localhost:3000")!,
-//                                config: [.log(true), .compress])
-//
-//    lazy var socket: SocketIOClient = manager.defaultSocket
-//
-//    static let shared = SocketIOService()
-//
-//    private override init() {
-//        super.init()
-//    }
-//
-//    func establishConnection() {
-//        socket.connect()
-//    }
-//
-//    func closeConnection() {
-//        socket.disconnect()
-//    }
-//
-//    func connectToServerWithNickname(nickname: String, completionHandler: @escaping (_ userList: [[String: AnyObject]]?) -> Void) {
-//        socket.emit("connectUser", nickname)
-//
-//        socket.on("userList") { (dataArray, ack) in
-//            completionHandler(dataArray[0] as? [[String : AnyObject]])
-//        }
-//    }
-//
-//    func connectToServer(completionHandler: @escaping (_ userList: [[String: AnyObject]]?) -> Void) {
-//        guard let playersOnCount = playersOn?.count else { return }
-//
-//        if playersOnCount == 0 {
-//            let playerOne = Player(type: .one)
-//            playersOn?.append(playerOne)
-//        } else if playersOnCount == 1 {
-//            let playerTwo = Player(type: .two)
-//            playersOn?.append(playerTwo)
-//        }
-//
-//        if playersOn != nil {
-//            socket.emit("connectUsers", with: playersOn!)
-//        }
-//    }
-//
-//    func exitChatWithNickname(nickname: String, completionHandler: @escaping () -> Void) {
-//        socket.emit("exitUser", nickname)
-//        completionHandler()
-//    }
-//
-//    func sendMessage(message: String, withNickname nickname: String) {
-//        socket.emit("chatMessage", nickname, message)
-//    }
-//
-//    func getChatMessage(completionHandler: @escaping (_ messageInfo: [String: AnyObject]) -> Void) {
-//        socket.on("newChatMessage") { (dataArray, socketAck) -> Void in
-//            var messageDictionary = [String: AnyObject]()
-//            messageDictionary["nickname"] = dataArray[0] as! String as AnyObject
-//            messageDictionary["message"] = dataArray[1] as! String as AnyObject
-//
-//            completionHandler(messageDictionary)
-//        }
-//    }
+    func getLoserNickname(completion: @escaping (String?) -> Void) {
+        socket.on("playerGiveUpName") { (data, _) in
+            let nickname = data[0] as! String
+            completion(nickname)
+        }
+    }
 }
