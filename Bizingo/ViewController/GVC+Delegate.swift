@@ -20,8 +20,7 @@ extension GameViewController: StartViewDelegate {
 
 extension GameViewController: ChatViewDelegate {
     func didTapRestart() {
-        updateStartView(to: true)
-        player = nil
+        goBackToStart(true)
     }
     
     func didTapGiveUp() {

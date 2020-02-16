@@ -14,8 +14,7 @@ class GameViewController: UIViewController {
     var nickname: String!
     var player: Player!
     var playerType: PlayerType!
-    var playersTyped: [Player] = []
-    var players: [Player] = []
+    var playersWithType: [Player] = []
     
     var loserNickname: String! {
         didSet {
@@ -45,12 +44,10 @@ class GameViewController: UIViewController {
     lazy var sceneView: GameSceneView = {
         let sceneView = GameSceneView()
         sceneView.isHidden = true
-        
-        createGameScene(to: sceneView)
-    
         sceneView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(sceneView)
-        
+        createGameScene(to: sceneView)
+
         return sceneView
     }()
     
@@ -60,116 +57,16 @@ class GameViewController: UIViewController {
         getLoserNickname()
     }
     
-    func updateStartView(to bool: Bool) {
-        chatView.isHidden = bool
-        sceneView.isHidden = bool
-        
-        if bool {
+    func goBackToStart(_ bool: Bool) {
+        if bool == true {
+            chatView.isHidden = bool
+            sceneView.isHidden = bool
             restartGame()
         } else {
             startView.removeFromSuperview()
+            chatView.isHidden = bool
+            sceneView.isHidden = bool
         }
-    }
-    
-    //  Atualiza o player on
-    private func update(with players: [Player], backToBeing bool: Bool) {
-        players.forEach { (player) -> Void in
-            var playerTyped = player
-            playerTyped.type = self.playerType
-            
-            self.playersTyped.append(playerTyped)
-        }
-        
-        chatView.players = self.playersTyped
-        
-        self.playersTyped.forEach { (player) -> Void in
-            if player.nickname == self.nickname {
-                self.player = player
-                self.chatView.player = player
-                self.sceneView.player = player
-            }
-        }
-        
-        updateStartView(to: bool)
-    }
-    
-    //  Pegar o nome do player e criar um player
-    func getPlayerNickname() {
-        let alertController = UIAlertController(title: "Nickname", message: "Por favor, escreva o seu nickname:", preferredStyle: UIAlertController.Style.alert)
-
-        alertController.addTextField(configurationHandler: nil)
-
-        let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
-            let textfield = alertController.textFields![0]
-            if textfield.text?.count == 0 {
-                self.getPlayerNickname()
-            } else {
-                self.nickname = textfield.text
-            
-                SocketIOService.shared.connectToServer(with: self.nickname) { (players) in
-                    DispatchQueue.main.async {
-                        if let players = players {
-                            self.players = players
-                            self.update(with: players, backToBeing: false)
-                        }
-                    }
-                }
-            }
-        }
-        
-        alertController.addAction(action)
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    func createAlertWith(title: String, message: String, action: UIAlertAction) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        
-        alertController.addAction(action)
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    //  Cria o alerta para o player que desistiu
-    func alertLoser() {
-        let title = "Você PERDEU!"
-        let message = "Às vezes, a melhor coisa a se fazer é desistir mesmo. Boa sorte na proxima!"
-        let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
-            self.updateStartView(to: true)
-            SocketIOService.shared.exitPlayer(with: self.player.nickname)
-            self.player = nil
-        }
-        
-        self.createAlertWith(title: title, message: message, action: action)
-    }
-    
-    //  Pega o nome do player que desistiu
-    func getLoserNickname() {
-        SocketIOService.shared.getLoserNickname { (nickname) in
-            if let nickname = nickname {
-                self.loserNickname = nickname
-            }
-        }
-    }
-    
-    //  Cria o alerta do player ganhador
-    func alertWinner() {
-        let title = "Você VENCEU!"
-        let message = "O jogador \(loserNickname!) desistiu. Parabéns você cansou ele!"
-        let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
-            self.updateStartView(to: true)
-            SocketIOService.shared.exitPlayer(with: self.player.nickname)
-            self.player = nil
-        }
-        
-        self.createAlertWith(title: title, message: message, action: action)
-    }
-    
-    private func restartGame() {
-        startView = StartView()
-        startView.delegate = self
-        view.addSubview(startView)
-        addStartViewConstraints()
-    
-        createGameScene(to: sceneView)
     }
     
     func createGameScene(to sceneView: GameSceneView) {
@@ -180,7 +77,14 @@ class GameViewController: UIViewController {
         }
     }
     
-    private func addStartViewConstraints() {
+    func createAlertWith(title: String, message: String, action: UIAlertAction) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
+        alertController.addAction(action)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func addStartViewConstraints() {
         startView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
@@ -191,7 +95,7 @@ class GameViewController: UIViewController {
         ])
     }
     
-    private func addContrstraints() {
+    func addContrstraints() {
         NSLayoutConstraint.activate([
             startView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             startView.topAnchor.constraint(equalTo: view.topAnchor),

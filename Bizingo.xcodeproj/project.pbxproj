@@ -31,6 +31,7 @@
 		A4E0BC6F23EF288C0017ED08 /* Index.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E0BC6E23EF288C0017ED08 /* Index.swift */; };
 		A4EBD0CE23EDA6A60028EA54 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EBD0CD23EDA6A60028EA54 /* Piece.swift */; };
 		A4EC0C8723F9B36300E23EB5 /* GVC+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC0C8623F9B36300E23EB5 /* GVC+Delegate.swift */; };
+		A4EC0C8923F9CCA200E23EB5 /* CVC+SocketIOService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC0C8823F9CCA200E23EB5 /* CVC+SocketIOService.swift */; };
 		A4EC912E23ECE4A100C2B53C /* KillMoviment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC912D23ECE4A100C2B53C /* KillMoviment.swift */; };
 		A4EC913523ECEB9300C2B53C /* MovimentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC913423ECEB9300C2B53C /* MovimentManager.swift */; };
 		A4FD0F1623EA3880008BF4EA /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FD0F1523EA3880008BF4EA /* Board.swift */; };
@@ -83,6 +84,7 @@
 		A4E0BC6E23EF288C0017ED08 /* Index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Index.swift; sourceTree = "<group>"; };
 		A4EBD0CD23EDA6A60028EA54 /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
 		A4EC0C8623F9B36300E23EB5 /* GVC+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GVC+Delegate.swift"; sourceTree = "<group>"; };
+		A4EC0C8823F9CCA200E23EB5 /* CVC+SocketIOService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CVC+SocketIOService.swift"; sourceTree = "<group>"; };
 		A4EC912D23ECE4A100C2B53C /* KillMoviment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KillMoviment.swift; sourceTree = "<group>"; };
 		A4EC913423ECEB9300C2B53C /* MovimentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovimentManager.swift; sourceTree = "<group>"; };
 		A4FD0F1523EA3880008BF4EA /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
@@ -143,8 +145,6 @@
 				A4EC0C8523F9B33700E23EB5 /* ViewController */,
 				A4442F0323F8705000094D8E /* SocketIO */,
 				A457DD6023F4795E000825F5 /* Views */,
-				A457DD5F23F4779E000825F5 /* Scene */,
-				A4EC913123ECE6F700C2B53C /* Board */,
 				A457DD5423F3184C000825F5 /* Ultis */,
 				645106E123E498710024C68B /* Assets.xcassets */,
 				645106E323E498710024C68B /* LaunchScreen.storyboard */,
@@ -203,6 +203,7 @@
 		A457DD5F23F4779E000825F5 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				A4EC913123ECE6F700C2B53C /* Board */,
 				645106DA23E4986D0024C68B /* GameScene.swift */,
 				A457DD5D23F471DB000825F5 /* GameSceneView.swift */,
 			);
@@ -212,9 +213,9 @@
 		A457DD6023F4795E000825F5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A4442F0823F87C2000094D8E /* StartView.swift */,
-				A457DD6123F47972000825F5 /* ChatView.swift */,
-				A418E9BC23F5B6BE00F6CED9 /* ChatTableViewCell.swift */,
+				A457DD5F23F4779E000825F5 /* Scene */,
+				A4EC0C8B23F9DA0600E23EB5 /* Start */,
+				A4EC0C8A23F9D9FC00E23EB5 /* Chat */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -224,8 +225,26 @@
 			children = (
 				645106DC23E4986D0024C68B /* GameViewController.swift */,
 				A4EC0C8623F9B36300E23EB5 /* GVC+Delegate.swift */,
+				A4EC0C8823F9CCA200E23EB5 /* CVC+SocketIOService.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		A4EC0C8A23F9D9FC00E23EB5 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				A457DD6123F47972000825F5 /* ChatView.swift */,
+				A418E9BC23F5B6BE00F6CED9 /* ChatTableViewCell.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		A4EC0C8B23F9DA0600E23EB5 /* Start */ = {
+			isa = PBXGroup;
+			children = (
+				A4442F0823F87C2000094D8E /* StartView.swift */,
+			);
+			path = Start;
 			sourceTree = "<group>";
 		};
 		A4EC913123ECE6F700C2B53C /* Board */ = {
@@ -404,6 +423,7 @@
 				A4EC913523ECEB9300C2B53C /* MovimentManager.swift in Sources */,
 				A418E9BD23F5B6BE00F6CED9 /* ChatTableViewCell.swift in Sources */,
 				A4EC912E23ECE4A100C2B53C /* KillMoviment.swift in Sources */,
+				A4EC0C8923F9CCA200E23EB5 /* CVC+SocketIOService.swift in Sources */,
 				645106D523E4986D0024C68B /* AppDelegate.swift in Sources */,
 				A4442F0723F871B600094D8E /* UIColor+AppColors.swift in Sources */,
 			);

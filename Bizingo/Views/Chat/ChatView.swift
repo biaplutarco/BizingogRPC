@@ -27,7 +27,11 @@ class ChatView: UIView {
     }
     var players: [Player] = []
     
-    var messages: [MessageInfo] = []
+    var messages: [MessageInfo] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     lazy var separatorView: UIView = {
         let view = UIView()
@@ -113,7 +117,7 @@ class ChatView: UIView {
     }
     
     @objc func didTapRestart(_ sender: UIButton) {
-        SocketIOService.shared.exitPlayer(with: player.nickname)
+        SocketIOService.shared.exit(player: player.nickname)
         self.delegate?.didTapRestart()
     }
     
@@ -148,7 +152,7 @@ class ChatView: UIView {
             
             restartButton.topAnchor.constraint(equalTo: separatorView.topAnchor, constant: 10),
             restartButton.leadingAnchor.constraint(equalTo: separatorView.leadingAnchor, constant: 10),
-            restartButton.widthAnchor.constraint(equalTo: separatorView.widthAnchor, multiplier: 0.3),
+            restartButton.trailingAnchor.constraint(equalTo: giveUpButton.leadingAnchor, constant: -10),
             restartButton.heightAnchor.constraint(equalToConstant: 40),
             
             giveUpButton.topAnchor.constraint(equalTo: separatorView.topAnchor, constant: 10),

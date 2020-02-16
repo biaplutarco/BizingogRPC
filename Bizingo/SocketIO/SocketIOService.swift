@@ -47,10 +47,10 @@ class SocketIOService: NSObject {
     }
     
     //  Desconnect
-    func exitPlayer(with nickname: String) {
+    func exit(player nickname: String) {
         socket.emit("exitUser", nickname)
     }
-
+    
     //  Chat
     func send(message: String, with nickname: String) {
         socket.emit("chatMessage", nickname, message)
