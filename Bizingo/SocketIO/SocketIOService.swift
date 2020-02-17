@@ -67,12 +67,12 @@ class SocketIOService: NSObject {
     //  Moviments
     func send(movement: Move) {
         if let data = try? JSONEncoder().encode(movement) {
-            socket.emit("gameMovement", data)
+            socket.emit("move", data)
         }
     }
     
     func getGameMovement(completion: @escaping (Move?) -> Void) {
-        socket.on("newGameMovement") { (data, _) -> Void in
+        socket.on("newMove") { (data, _) -> Void in
             let movement = try? JSONDecoder().decode(Move.self, from: (data[0] as! Data))
             completion(movement)
         }

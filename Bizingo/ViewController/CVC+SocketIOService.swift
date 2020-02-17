@@ -61,6 +61,46 @@ extension GameViewController {
         goBackToStart(false)
     }
     
+    func updateMoves() {
+        let board = self.sceneView.gameScene!.board!
+        
+        if player.type == .one {
+            SocketIOService.shared.getGameMovement { (move) in
+                if let move = move {
+                    board.playerTwoPieces.forEach { (piece) in
+                        if piece.initialIndex == move.from {
+                            board.triangles.forEach { (row) in
+                                row.forEach { (triangle) in
+                                    if triangle.index == move.to {
+                                        piece.move(to: move.to, in: triangle.getCenter(to: .two), playerType: .two)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+        } else if player.type == .two {
+            SocketIOService.shared.getGameMovement { (move) in
+                if let move = move {
+                    board.playerOnePieces.forEach { (piece) in
+                        if piece.initialIndex == move.from {
+                            board.triangles.forEach { (row) in
+                                row.forEach { (triangle) in
+                                    if triangle.index == move.to {
+                                        piece.move(to: move.to, in: triangle.getCenter(to: .one), playerType: .one)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+    
     //  Seta o type do player de acordo com o selecionado
     func setType(to player: Player) {
         var playerTyped = player

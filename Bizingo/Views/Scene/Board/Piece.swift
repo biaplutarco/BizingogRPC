@@ -17,11 +17,7 @@ enum Type {
 
 class Piece: SKShapeNode {
     var initialIndex: Index
-    var origin: CGPoint {
-        didSet {
-            currentOrigin = origin
-        }
-    }
+    var origin: CGPoint
     
     var currentIndex: Index
     var scale: CGFloat
@@ -55,12 +51,11 @@ class Piece: SKShapeNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func move(to index: Index, in point: CGPoint) {
+    func move(to index: Index, in point: CGPoint, playerType: PlayerType) {
         var offset = CGPoint()
-        let player: PlayerType = GameScene.player.type
         var center = CGPoint()
         
-        switch player {
+        switch playerType {
         case .one:
             offset = CGPoint(x: scale * 5, y: scale * 1)
             self.fillColor = .pieceOne
@@ -82,12 +77,9 @@ class Piece: SKShapeNode {
         }
         
         let action = SKAction.move(by: distance(point, center), duration: 1)
-        print(index)
         initialIndex = currentIndex
         currentIndex = index
-        let move = Move(from: initialIndex, to: index)
-        SocketIOService.shared.send(movement: move)
-        print(index)
+        
         self.run(action)
     }
     
@@ -104,15 +96,6 @@ class Piece: SKShapeNode {
     func sendMove() {
         let move = Move(from: initialIndex, to: currentIndex)
         SocketIOService.shared.send(movement: move)
-    }
-    
-    func updatePosition() {
-        SocketIOService.shared.getGameMovement { (move) in
-            if let move = move {
-                self.initialIndex = move.from
-                self.move(to: move.to, in: GameScene.currentTriangle.getCenter(to: GameScene.player.type))
-            }
-        }
     }
         
     private func drawPiece(to player: PlayerType) {

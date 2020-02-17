@@ -19,6 +19,10 @@ extension GameViewController: StartViewDelegate {
 }
 
 extension GameViewController: ChatViewDelegate {
+    func sendMoviment() {
+        updateMoves()
+    }
+    
     func didTapRestart() {
         goBackToStart(true)
     }

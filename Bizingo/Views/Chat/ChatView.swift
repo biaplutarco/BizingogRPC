@@ -11,6 +11,7 @@ import UIKit
 protocol ChatViewDelegate: class {
     func didTapGiveUp()
     func didTapRestart()
+    func sendMoviment()
 }
 
 class ChatView: UIView {
@@ -35,7 +36,7 @@ class ChatView: UIView {
     
     lazy var separatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = .textfield
+        view.backgroundColor = .clear
         view.layer.cornerRadius = 10
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
@@ -57,7 +58,7 @@ class ChatView: UIView {
     
     lazy var sendMovimentButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Enviar Movimento", for: .normal)
+        button.setTitle("Iniciar Movimento", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(didSendMoviment(_:)), for: .touchUpInside)
@@ -141,13 +142,10 @@ class ChatView: UIView {
     }
     
     @objc func didSendMoviment(_ sender: UIButton) {
-//        if player.type == .one {
-//            GameScene.currentBoard.playerOnePieces.forEach { $0.sendMove() }
-            GameScene.currentBoard.playerTwoPieces.forEach({ $0.updatePosition() })
-//        } else {
-//            GameScene.currentBoard.playerTwoPieces.forEach { $0.sendMove() }
-            GameScene.currentBoard.playerOnePieces.forEach({ $0.updatePosition() })
-//        }
+        delegate?.sendMoviment()
+        sendMovimentButton.setTitleColor(.black, for: .normal)
+        sendMovimentButton.setTitle("Movimento iniciado", for: .normal)
+        sendMovimentButton.backgroundColor = .clear
     }
     
     private func updateUI(to color: UIColor) {
@@ -173,7 +171,7 @@ class ChatView: UIView {
             separatorView.heightAnchor.constraint(equalToConstant: 60),
             
             sendMovimentButton.topAnchor.constraint(equalTo: separatorView.topAnchor, constant: 10),
-            sendMovimentButton.leadingAnchor.constraint(equalTo: separatorView.leadingAnchor, constant: 10),
+            sendMovimentButton.leadingAnchor.constraint(equalTo: separatorView.leadingAnchor),
             sendMovimentButton.widthAnchor.constraint(equalToConstant: 200),
             sendMovimentButton.heightAnchor.constraint(equalToConstant: 40),
             
@@ -183,7 +181,7 @@ class ChatView: UIView {
             restartButton.heightAnchor.constraint(equalToConstant: 40),
             
             giveUpButton.topAnchor.constraint(equalTo: separatorView.topAnchor, constant: 10),
-            giveUpButton.trailingAnchor.constraint(equalTo: separatorView.trailingAnchor, constant: -10),
+            giveUpButton.trailingAnchor.constraint(equalTo: separatorView.trailingAnchor),
             giveUpButton.widthAnchor.constraint(equalTo: restartButton.widthAnchor),
             giveUpButton.heightAnchor.constraint(equalTo: restartButton.heightAnchor),
 

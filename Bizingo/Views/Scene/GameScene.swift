@@ -13,7 +13,6 @@ import GameplayKit
 class GameScene: SKScene {
     static var player: Player!
     static var currentTriangle: Triangle!
-    static var currentBoard: Board = Board()
 
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
@@ -24,7 +23,7 @@ class GameScene: SKScene {
     
     private var lastUpdateTime : TimeInterval = 0
     
-    private var board: Board!
+    var board: Board!
     private var moveManager: MovimentManager!
     
     override func sceneDidLoad() {
@@ -34,7 +33,7 @@ class GameScene: SKScene {
     }
     
     private func buildBizingoBoard() {
-        self.board = GameScene.currentBoard
+        self.board = Board()
         self.moveManager = MovimentManager(board: board)
         
         board.triangles.forEach { row in
@@ -89,24 +88,35 @@ class GameScene: SKScene {
                     if triangle.contains(point) &&
                         triangle.isEmpty == false &&
                         triangle.index == piece.currentIndex {
-                        
+                        GameScene.currentTriangle = triangle
                         self.moveManager.showPossibleMoves(for: triangle.index)
                         self.selectedPiece = piece
                     }
                 }
                 
                 if let piece = self.selectedPiece, triangle.contains(point) && triangle.isEmpty == true {
-                    print(point)
-                    print(triangle.index)
-                    
-                    GameScene.currentTriangle = triangle
                     self.moveManager.move(piece: piece, to: triangle.index,
-                                          in: triangle.getCenter(to: GameScene.player.type))
+                                          in: triangle.getCenter(to: GameScene.player.type), playerType:  GameScene.player.type)
+                    triangle.isEmpty = false
+                    self.sendMove(from: piece.initialIndex, to: triangle.index)
+                    
+                    board.triangles.enumerated().forEach { i, line in
+                        line.enumerated().forEach { j, triangle in
+                            if triangle.index == piece.initialIndex {
+                                triangle.isEmpty = true
+                            }
+                        }
+                    }
+
                 }
             }
         }
     }
     
+    func sendMove(from: Index, to: Index) {
+        let move = Move(from: from, to: to)
+        SocketIOService.shared.send(movement: move)
+    }
         
     func touchDown(atPoint point: CGPoint) {
         isSelecting = true
