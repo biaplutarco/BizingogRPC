@@ -24,10 +24,10 @@
 		A4442F0B23F87CBF00094D8E /* MessageInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4442F0A23F87CBF00094D8E /* MessageInfo.swift */; };
 		A4442F1023F884B000094D8E /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4442F0F23F884B000094D8E /* Move.swift */; };
 		A457DD5323F312E9000825F5 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457DD5223F312E9000825F5 /* Player.swift */; };
-		A457DD5A23F33C1E000825F5 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = A457DD5923F33C1E000825F5 /* SocketIO */; };
 		A457DD5C23F33D66000825F5 /* SocketIOService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457DD5B23F33D66000825F5 /* SocketIOService.swift */; };
 		A457DD5E23F471DC000825F5 /* GameSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457DD5D23F471DB000825F5 /* GameSceneView.swift */; };
 		A457DD6223F47972000825F5 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457DD6123F47972000825F5 /* ChatView.swift */; };
+		A492AF0923FAFCB900728AAD /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = A492AF0823FAFCB900728AAD /* SocketIO */; };
 		A4E0BC6F23EF288C0017ED08 /* Index.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E0BC6E23EF288C0017ED08 /* Index.swift */; };
 		A4EBD0CE23EDA6A60028EA54 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EBD0CD23EDA6A60028EA54 /* Piece.swift */; };
 		A4EC0C8723F9B36300E23EB5 /* GVC+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC0C8623F9B36300E23EB5 /* GVC+Delegate.swift */; };
@@ -95,7 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A457DD5A23F33C1E000825F5 /* SocketIO in Frameworks */,
+				A492AF0923FAFCB900728AAD /* SocketIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,7 +284,7 @@
 			);
 			name = Bizingo;
 			packageProductDependencies = (
-				A457DD5923F33C1E000825F5 /* SocketIO */,
+				A492AF0823FAFCB900728AAD /* SocketIO */,
 			);
 			productName = Bizingo;
 			productReference = 645106D123E4986D0024C68B /* Bizingo.app */;
@@ -359,7 +359,7 @@
 			);
 			mainGroup = 645106C823E4986D0024C68B;
 			packageReferences = (
-				A457DD5823F33C1E000825F5 /* XCRemoteSwiftPackageReference "socket" */,
+				A492AF0723FAFCB900728AAD /* XCRemoteSwiftPackageReference "socket" */,
 			);
 			productRefGroup = 645106D223E4986D0024C68B /* Products */;
 			projectDirPath = "";
@@ -756,9 +756,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		A457DD5823F33C1E000825F5 /* XCRemoteSwiftPackageReference "socket" */ = {
+		A492AF0723FAFCB900728AAD /* XCRemoteSwiftPackageReference "socket" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/socketio/socket.io-client-swift";
+			repositoryURL = "https://github.com/socketio/socket.io-client-swift/";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 15.2.0;
@@ -767,9 +767,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A457DD5923F33C1E000825F5 /* SocketIO */ = {
+		A492AF0823FAFCB900728AAD /* SocketIO */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A457DD5823F33C1E000825F5 /* XCRemoteSwiftPackageReference "socket" */;
+			package = A492AF0723FAFCB900728AAD /* XCRemoteSwiftPackageReference "socket" */;
 			productName = SocketIO;
 		};
 /* End XCSwiftPackageProductDependency section */
